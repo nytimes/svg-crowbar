@@ -10,7 +10,8 @@ The crowbar grabs all SVG nodes by default.
 ```javascript
 SVGCrowbar.init();
 ```
-You can optionally pass a CSS selector to restrict which node you want to extract.
+
+You can alternately pass a CSS selector to restrict which node you want to extract.
 
 ```javascript
 SVGCrowbar.init("#map");
