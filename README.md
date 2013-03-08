@@ -1,4 +1,19 @@
-svg-crowbar
-===========
+#svg-crowbar
 
-Extracts an SVG node and accompanying styles from an HTML document and allows you to download it all as an SVG file.
+Extracts SVG nodes and accompanying styles from an HTML document and downloads them as an SVG file.
+
+Requires [d3.js](http://d3js.org)
+
+##Usage
+
+```javascript
+SVGCrowbar.init();
+```
+
+will grab all SVG nodes.
+
+```javascript
+SVGCrowbar.init("#map");
+```
+
+You can optionally pass a CSS selector.
