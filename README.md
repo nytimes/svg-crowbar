@@ -5,15 +5,15 @@ Extracts SVG nodes and accompanying styles from an HTML document and downloads t
 Requires [d3.js](http://d3js.org)
 
 ##Usage
-The crowbar grabs all SVG nodes by default.
+The crowbar grabs the first SVG node in the DOM by default.
 
 ```javascript
 SVGCrowbar.init();
 ```
 
-You can alternately pass a CSS selector to restrict which node you want to extract.
+You can alternately pass a CSS selector and a filename to target which node you want to extract.
 
 ```javascript
-SVGCrowbar.init("#map");
+SVGCrowbar.init("svg#map", "map");
 ```
 
