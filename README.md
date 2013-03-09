@@ -6,18 +6,21 @@ Requires [d3.js](http://d3js.org)
 
 ##Usage
 The crowbar grabs the first SVG node in the DOM by default.
-
 ```javascript
 SVGCrowbar.init();
 ```
 
-You can alternately pass a CSS selector and a filename to target which node you want to extract.
-
+The name of the file defaults to "untitled.svg", but you can pass your own.
 ```javascript
-SVGCrowbar.init("svg.map", "map");
+SVGCrowbar.init("map");
+```
+
+You can also pass a CSS selector to target a specific svg node.
+```javascript
+SVGCrowbar.init("map", "svg.map");
 ```
 
 ##Gotchas
 It only works in Chrome.
 
-The crowbar will fetch remote CSS that is included with a link tag, but those that are imported with "@import" are not yet supported and will not be reflected in your svg file.
+The crowbar will fetch remote CSS that is included with a link tag, but those that are imported with "@import" are not yet supported.

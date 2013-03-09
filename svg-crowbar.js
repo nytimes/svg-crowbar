@@ -1,6 +1,6 @@
 var SVGCrowbar = {
 
-  init: function(selector, filename) {
+  init: function(filename, selector) {
 
     var title = filename ? filename : "untitled",
         svg = d3.select(selector ? selector : "svg"),
