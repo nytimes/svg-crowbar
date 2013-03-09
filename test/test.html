@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<link rel="stylesheet" type="text/css" href="link.css">
+<style>
+
+  @import url(import.css);
+
+  svg {
+    border: solid 1px #ddd;
+  }
+
+  .inline {
+    fill: #ff00ff;
+    font-size: 16px;
+    font-family: Helvetica;
+  }
+
+</style>
+
+<div id="body"></div>
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="../svg-crowbar.js"></script>
+<script type="text/javascript">
+
+  var svg = d3.select("#body").append("svg")
+      .attr("class", "first")
+      .attr("width", 800)
+      .attr("height", 400);
+
+  svg.append("circle")
+      .attr("r", 50)
+      .style("fill", "#00f");
+
+  svg.append("text")
+      .attr("class", "inline")
+      .attr("x", 100)
+      .attr("y", 100)
+      .text("Inline CSS, this text should be pink.");
+
+  svg.append("text")
+      .attr("class", "import")
+      .attr("x", 100)
+      .attr("y", 200)
+      .text("Imported CSS, this text should be pink.");
+
+  svg.append("text")
+      .attr("class", "link")
+      .attr("x", 100)
+      .attr("y", 300)
+      .text("Linked CSS, this text should be pink.");
+
+  var secondSvg = d3.select("#body").append("svg")
+      .attr("class", "second")
+      .attr("width", 800)
+      .attr("height", 400);
+
+  secondSvg.append("circle")
+      .attr("r", 20);
+
+  SVGCrowbar.init("svg.first", "first");
+  SVGCrowbar.init("svg.second", "second");
+
+</script>
