@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 
-<link rel="stylesheet" type="text/css" href="link.css">
+<link rel="stylesheet" type="text/css" href="linked.css">
+<link rel="stylesheet" type="text/css" href="linked.css">
+<link rel="stylesheet" type="text/css" href="linked.css">
 <style>
 
-  @import url(import.css);
+  @import url(imported.css);
 
   svg {
     border: solid 1px #ddd;
   }
 
-  .inline {
-    fill: #ff00ff;
+  .internal {
+    fill: #f0f;
     font-size: 16px;
     font-family: Helvetica;
   }
@@ -33,19 +35,19 @@
       .style("fill", "#00f");
 
   svg.append("text")
-      .attr("class", "inline")
+      .attr("class", "internal")
       .attr("x", 100)
       .attr("y", 100)
-      .text("Inline CSS, this text should be pink.");
+      .text("Internal CSS, this text should be pink.");
 
   svg.append("text")
-      .attr("class", "import")
+      .attr("class", "imported")
       .attr("x", 100)
       .attr("y", 200)
       .text("Imported CSS, this text should be pink.");
 
   svg.append("text")
-      .attr("class", "link")
+      .attr("class", "linked")
       .attr("x", 100)
       .attr("y", 300)
       .text("Linked CSS, this text should be pink.");
