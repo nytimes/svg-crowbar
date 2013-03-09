@@ -11,11 +11,16 @@ var SVGCrowbar = {
         .attr("class", "svg-crowbar")
         .attr("target", "_blank")
         .attr("download", title + ".svg")
-        .style("margin-top", "10px");
-
-    link.append("button")
-        .text("Save " + title + ".svg")
-        .style("display", "block");
+        .style("width", "250px")
+        .style("font-size", "16px")
+        .style("display", "inline-block")
+        .style("text-align", "center")
+        .style("border-radius", "3px")
+        .style("padding", "6px")
+        .style("color", "white")
+        .style("background", "#004276")
+        .style("margin", "10px 10px 0 0")
+        .text("Download " + title + ".svg")
 
     link.on("mouseover", function() {
       var doctype = '<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">',
@@ -37,7 +42,7 @@ var SVGCrowbar = {
         .append("style")
           .attr("type", "text/css");
 
-      link.select("button").text("Processing ...")
+      link.text("Processing ...")
 
       // TODO Find imported stylesheets
       // @import url(http://graphics8.nytimes.com/css/);
@@ -65,7 +70,7 @@ var SVGCrowbar = {
       }
 
       function cssReady() {
-        link.select("button").text("Save " + title + ".svg")
+        link.text("Ready to download " + title + ".svg")
         var svgSource = (new XMLSerializer()).serializeToString(svg.node()).replace('</style>', '<![CDATA[' + styles + ']]></style>');
         var svgOutput = [doctype + svgSource];
         link.attr("href", URL.createObjectURL(new Blob(svgOutput, { "type" : "text\/xml" })));
@@ -73,6 +78,7 @@ var SVGCrowbar = {
 
     })
     .on("mouseout", function() {
+      link.text("Download " + title + ".svg")
       setTimeout(function() {
         URL.revokeObjectURL(this.href);
       }, 10);
