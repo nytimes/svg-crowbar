@@ -17,6 +17,7 @@ You can alternately pass a CSS selector and a filename to target which node you 
 SVGCrowbar.init("svg.map", "map");
 ```
 
-##Gotcha
+##Gotchas
+It only works in Chrome.
 
 The crowbar will fetch remote CSS that is included with a link tag, but those that are imported with "@import" are not yet supported and will not be reflected in your svg file.
