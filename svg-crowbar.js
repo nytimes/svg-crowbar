@@ -46,6 +46,8 @@ var SVGCrowbar = {
 
       // TODO Find imported stylesheets
       // @import url(http://graphics8.nytimes.com/css/);
+      // @import url('http://graphics8.nytimes.com/css/');
+      // @import url("http://graphics8.nytimes.com/css/");
       // remoteStyleSheetURLs.push("imported.css")
 
       // Find linked stylesheets
