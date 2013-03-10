@@ -6,7 +6,7 @@ chrome.extension.onMessage.addListener(
         .text("The Crowbar");
 
     headline.append("span")
-        .text(" found " + request.svgs.length + " SVG nodes");
+        .text(" found " + (request.svgs.length === 0 ? "no" : request.svgs.length) + " SVG node" + (request.svgs.length === 1 ? "" : "s"));
 
     var downloads = html.append("div")
         .attr("class", "downloads");
