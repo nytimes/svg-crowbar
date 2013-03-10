@@ -23,4 +23,4 @@ SVGCrowbar.init("map", "svg.map");
 ##Gotchas
 It only works in Chrome.
 
-The crowbar will fetch remote CSS that is included with a link tag, but those that are imported with "@import" are not yet supported.
+Some advanced CSS selectors will crash Illustrator. Be warned.
