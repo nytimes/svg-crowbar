@@ -16,7 +16,10 @@ function processStyleSheet(ss) {
       // Import Rule
       processStyleSheet(rule.styleSheet);
     } else {
-      styles += "\n" + rule.cssText;
+      // hack for illustrator crashing
+      // if (rule.selectorText.indexOf(">") === -1) {
+        styles += "\n" + rule.cssText;
+      // };
     }
   }
 }
