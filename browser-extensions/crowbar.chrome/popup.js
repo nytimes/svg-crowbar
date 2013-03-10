@@ -51,6 +51,5 @@ chrome.extension.onMessage.addListener(
   });
 
 chrome.tabs.executeScript(null, {file: "d3.v3.min.js"});
-chrome.tabs.executeScript(null, {file: "queue.v1.min.js"});
 chrome.tabs.executeScript(null, {file: "crowbar.js"});
 
