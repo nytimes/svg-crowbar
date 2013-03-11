@@ -163,8 +163,10 @@
     var styles = "",
         styleSheets = window.document.styleSheets;
 
-    for (var i = 0; i < styleSheets.length; i++) {
-      processStyleSheet(styleSheets[i]);
+    if (styleSheets) {
+      for (var i = 0; i < styleSheets.length; i++) {
+        processStyleSheet(styleSheets[i]);
+      }
     }
 
     function processStyleSheet(ss) {
