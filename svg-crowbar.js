@@ -115,8 +115,8 @@
           .attr("type", "text/css");
 
       // Some svgs would allow this attr to be set twice.
-      if (svg.attr("xmlns") !== d3.ns.prefix.svg) {
-        svg.attr("xmlns", d3.ns.prefix.svg)
+      if (svg.attr("xmlns") === null) {
+        svg.attr("xmlns", d3.ns.prefix.svg);
       };
 
       var source = (new XMLSerializer()).serializeToString(svg.node()).replace('</style>', '<![CDATA[' + styles + ']]></style>');
