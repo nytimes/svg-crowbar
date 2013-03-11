@@ -1,92 +1,97 @@
 <!DOCTYPE html>
-<meta></meta>
+<head>
+  <title>SVG Crowbar</title>
+  <link rel="stylesheet" type="text/css" href="assets/linked.css">
+  <style>
 
-<link rel="stylesheet" type="text/css" href="assets/linked.css">
+    /* Testing */
+    @import url("assets/imported.css");
 
-<style>
-  /* Testing */
-  @import url("assets/imported.css");
+    svg {
+    border: solid 1px #ddd;
+    }
 
-  svg {
-  border: solid 1px #ddd;
-  }
+    .internal {
+    fill: #f0f;
+    font-size: 16px;
+    font-family: Helvetica;
+    }
 
-  .internal {
-  fill: #f0f;
-  font-size: 16px;
-  font-family: Helvetica;
-  }
+    /* Page Styles */
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial;
+      width: 800px;
+      margin: 20px auto;
+    }
 
-  /* Page Styles */
-  body {
-    font-family: "Helvetica Neue", Helvetica, Arial;
-  }
+    .bookmarklet {
+      padding: 3px 8px;
+      font-size: 12px;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 1em;
+      background: #666;
+      color: white;
+    }
 
-  .bookmarklet {
-    padding: 3px 8px;
-    font-size: 12px;
-    font-weight: bold;
-    text-decoration: none;
-    border-radius: 1em;
-    background: #666;
-    color: white;
-  }
+    #svgs {
+      margin: 20px 0;
+    }
 
-  #svgs {
-    margin: 20px 0;
-  }
+  </style>
+</head>
 
-</style>
+<body>
+  <h1>SVG Crowbar</h1>
+  <p>
+    <span>Bookmarklet:</span>
+    <a class="bookmarklet" href="javascript:javascript: (function () { var e = document.createElement('script'); e.setAttribute('src', 'http://nytimes.github.com/svg-crowbar/svg-crowbar.js'); document.body.appendChild(e);
+   })();">SVG Crowbar</a>
+    <span>&larr; Drag this to your bookmarks bar.</span>
+  </p>
+  <h2>Some Test SVGs</h2>
+  <div id="svgs"></div>
 
-<h1>SVG Crowbar</h1>
-<p>
-  <span>Bookmarklet:</span>
-  <a class="bookmarklet" href="javascript:javascript: (function () { var e = document.createElement('script'); e.setAttribute('src', 'http://nytimes.github.com/svg-crowbar/svg-crowbar.js'); document.body.appendChild(e);
- })();">SVG Crowbar</a>
-  <span>&larr; Drag this to your bookmarks bar.</span>
-</p>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script type="text/javascript">
 
-<h2>Some Test SVGs</h2>
-<div id="svgs"></div>
+   var svg = d3.select("#svgs").append("svg")
+       .attr("class", "first")
+       .attr("width", 800)
+       .attr("height", 400);
 
-<script src="http://d3js.org/d3.v3.min.js"></script>
-<script type="text/javascript">
+   svg.append("circle")
+       .attr("r", 50)
+       .style("fill", "#00f");
 
- var svg = d3.select("#svgs").append("svg")
-     .attr("class", "first")
-     .attr("width", 800)
-     .attr("height", 400);
+   svg.append("text")
+       .attr("class", "internal")
+       .attr("x", 100)
+       .attr("y", 100)
+       .text("Internal CSS, this text should be pink.");
 
- svg.append("circle")
-     .attr("r", 50)
-     .style("fill", "#00f");
+   svg.append("text")
+       .attr("class", "imported")
+       .attr("x", 100)
+       .attr("y", 200)
+       .text("Imported CSS, this text should be pink.");
 
- svg.append("text")
-     .attr("class", "internal")
-     .attr("x", 100)
-     .attr("y", 100)
-     .text("Internal CSS, this text should be pink.");
+   svg.append("text")
+       .attr("class", "linked")
+       .attr("x", 100)
+       .attr("y", 300)
+       .text("Linked CSS, this text should be pink.");
 
- svg.append("text")
-     .attr("class", "imported")
-     .attr("x", 100)
-     .attr("y", 200)
-     .text("Imported CSS, this text should be pink.");
+   var secondSvg = d3.select("#svgs").append("svg")
+       .attr("class", "second")
+       .attr("width", 800)
+       .attr("height", 400);
 
- svg.append("text")
-     .attr("class", "linked")
-     .attr("x", 100)
-     .attr("y", 300)
-     .text("Linked CSS, this text should be pink.");
+   secondSvg.append("circle")
+       .attr("r", 20);
 
- var secondSvg = d3.select("#svgs").append("svg")
-     .attr("class", "second")
-     .attr("width", 800)
-     .attr("height", 400);
+   // SVGCrowbar.init("second", "svg.second");
 
- secondSvg.append("circle")
-     .attr("r", 20);
+  </script>
 
- // SVGCrowbar.init("second", "svg.second");
-
-</script>
+</body>
