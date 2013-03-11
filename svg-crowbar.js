@@ -11,6 +11,7 @@
   //
   //
   function createPopover(sources) {
+
     closePopover();
 
     var body = d3.select("body");
@@ -27,22 +28,24 @@
         .style("color", "white")
         .style("font-family", "'Helvetica Neue'");
 
-    var close = html.append("div")
-        .text("X")
-        .style("position", "absolute")
-        .style("font-weight", "bold")
-        .style("right", "-9px")
-        .style("top", "-9px")
-        .style("border", "solid 2px white")
-        .style("cursor", "pointer")
-        .style("text-align", "center")
-        .style("font-size", "10px")
-        .style("line-height", "18px")
-        .style("border-radius", "20px")
-        .style("background", "#c33")
-        .style("width", "18px")
-        .style("height", "18px")
-        .on("click", closePopover)
+    // TODO Don't want to add this until we can clean up the added style tags to the svg nodes
+    //
+    // var close = html.append("div")
+    //     .text("X")
+    //     .style("position", "absolute")
+    //     .style("font-weight", "bold")
+    //     .style("right", "-9px")
+    //     .style("top", "-9px")
+    //     .style("border", "solid 2px white")
+    //     .style("cursor", "pointer")
+    //     .style("text-align", "center")
+    //     .style("font-size", "10px")
+    //     .style("line-height", "18px")
+    //     .style("border-radius", "20px")
+    //     .style("background", "#c33")
+    //     .style("width", "18px")
+    //     .style("height", "18px")
+    //     .on("click", closePopover);
 
     var headline = html.append("div")
         .text("The Crowbar");
@@ -72,7 +75,7 @@
         .on("click", function(d, i) {
           d3.event.preventDefault();
           download(d.source);
-          closePopover();
+          // closePopover();
         });
 
     button.each(function(source) {
