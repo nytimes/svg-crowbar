@@ -1,28 +1,52 @@
 <!DOCTYPE html>
+<meta></meta>
 
 <link rel="stylesheet" type="text/css" href="assets/linked.css">
 
 <style>
-
+  /* Testing */
   @import url("assets/imported.css");
 
   svg {
-    border: solid 1px #ddd;
+  border: solid 1px #ddd;
   }
 
   .internal {
-    fill: #f0f;
-    font-size: 16px;
-    font-family: Helvetica;
+  fill: #f0f;
+  font-size: 16px;
+  font-family: Helvetica;
+  }
+
+  /* Page Styles */
+  body {
+    font-family: "Helvetica Neue", Helvetica, Arial;
+  }
+
+  .bookmarklet {
+    padding: 3px 8px;
+    font-size: 12px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 1em;
+    background: #666;
+    color: white;
+  }
+
+  #svgs {
+    margin: 20px 0;
   }
 
 </style>
 
 <h1>SVG Crowbar</h1>
-<p>Bookmarklet:</p>
-<a href="javascript:javascript: (function () { var e = document.createElement('script'); e.setAttribute('src', 'svg-crowbar.js'); document.body.appendChild(e);
+<p>
+  <span>Bookmarklet:</span>
+  <a class="bookmarklet" href="javascript:javascript: (function () { var e = document.createElement('script'); e.setAttribute('src', 'http://nytimes.github.com/svg-crowbar/svg-crowbar.js'); document.body.appendChild(e);
  })();">SVG Crowbar</a>
+  <span>&larr; Drag this to your bookmarks bar.</span>
+</p>
 
+<h2>Some Test SVGs</h2>
 <div id="svgs"></div>
 
 <script src="http://d3js.org/d3.v3.min.js"></script>
