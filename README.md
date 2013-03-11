@@ -1,26 +1,8 @@
 #svg-crowbar
 
-Extracts SVG nodes and accompanying styles from an HTML document and downloads them as an SVG file.
+A bookmarklet that extracts SVG nodes and accompanying styles from an HTML document and downloads them as an SVG file—A file which you could open and edit in Adobe Illustrator, for instance. Because SVGs are resolution independent, it works great for using web technologies to create documents that are meant to be printed.
 
 Requires [d3.js](http://d3js.org)
 
 ##Usage
-The crowbar grabs the first SVG node in the DOM by default.
-```javascript
-SVGCrowbar.init();
-```
-
-The name of the file defaults to "untitled.svg", but you can pass your own.
-```javascript
-SVGCrowbar.init("map");
-```
-
-You can also pass a CSS selector to target a specific svg node.
-```javascript
-SVGCrowbar.init("map", "svg.map");
-```
-
-##Gotchas
-It only works in Chrome.
-
-Some advanced CSS selectors will crash Illustrator. Be warned.
+[Project page](http://nytimes.github.com/svg-crowbar/)
