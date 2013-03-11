@@ -9,13 +9,21 @@
     @import url("assets/imported.css");
 
     svg {
-    border: solid 1px #ddd;
+      border: solid 1px #ddd;
     }
 
     .internal {
-    fill: #f0f;
-    font-size: 16px;
-    font-family: Helvetica;
+      fill: #f0f;
+    }
+
+    #svgs .dependency {
+      fill: #f0f;
+    }
+
+    svg text {
+      text-anchor: middle;
+      font-size: 16px;
+      font-family: Helvetica;
     }
 
     /* Page Styles */
@@ -87,43 +95,61 @@
 
   <script src="http://d3js.org/d3.v3.min.js"></script>
   <script type="text/javascript">
+    var width = 600,
+        height = 300;
 
-   var svg = d3.select("#svgs").append("svg")
+    var svg = d3.select("#svgs").append("svg")
        .attr("class", "first")
-       .attr("width", 600)
-       .attr("height", 400);
+       .attr("width", width)
+       .attr("height", height);
 
-   svg.append("circle")
-       .attr("r", 50)
-       .style("fill", "#00f");
+    svg.selectAll("circle")
+        .data(d3.range(20))
+      .enter().append("circle")
+        .attr("cx", width / 2)
+        .attr("cy", height / 2)
+        .attr("r", function(d) { return d * 20; })
+        .style("fill", "#0ff")
+        .style("fill-opacity", 0.01)
+        .style("stroke", "#0ff");
 
-   svg.append("text")
-       .attr("class", "internal")
-       .attr("x", 100)
-       .attr("y", 100)
-       .text("Internal CSS, this text should be pink.");
+    svg.append("text")
+        .attr("class", "internal")
+        .attr("x", width / 2)
+        .attr("y", height / 5)
+        .text("Internal CSS, this text should be pink.");
 
-   svg.append("text")
-       .attr("class", "imported")
-       .attr("x", 100)
-       .attr("y", 200)
-       .text("Imported CSS, this text should be pink.");
+    svg.append("text")
+        .attr("class", "imported")
+        .attr("x", width / 2)
+        .attr("y", height / 5 * 2)
+        .text("Imported CSS, this text should be pink.");
 
-   svg.append("text")
-       .attr("class", "linked")
-       .attr("x", 100)
-       .attr("y", 300)
-       .text("Linked CSS, this text should be pink.");
+    svg.append("text")
+        .attr("class", "linked")
+        .attr("x", width / 2)
+        .attr("y", height / 5 * 3)
+        .text("Linked CSS, this text should be pink.");
 
-   var secondSvg = d3.select("#svgs").append("svg")
-       .attr("class", "second")
-       .attr("width", 600)
-       .attr("height", 400);
+    svg.append("text")
+        .attr("class", "dependency")
+        .attr("x", width / 2)
+        .attr("y", height / 5 * 4)
+        .text("An HTML dependency, this text should be pink.");
 
-   secondSvg.append("circle")
-       .attr("r", 20);
+    var secondSvg = d3.select("#svgs").append("svg")
+        .attr("class", "second")
+        .attr("width", width)
+        .attr("height", height);
 
-   // SVGCrowbar.init("second", "svg.second");
+    secondSvg.selectAll("circle")
+        .data(d3.range(600))
+      .enter().append("circle")
+        .attr("cx", function(d) { return (d % 20) * (width / 19); })
+        .attr("cy", function(d) { return Math.floor(d / 20) * (height / 29); })
+        .attr("r", function(d) { return Math.random() * 10; })
+        .style("fill", "#f0f")
+        .style("fill-opacity", 0.5);
 
   </script>
 
