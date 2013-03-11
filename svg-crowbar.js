@@ -133,16 +133,18 @@
     }
 
     function processStyleSheet(ss) {
-      for (var i = 0; i < ss.cssRules.length; i++) {
-        var rule = ss.cssRules[i];
-        if (rule.type === 3) {
-          // Import Rule
-          processStyleSheet(rule.styleSheet);
-        } else {
-          // hack for illustrator crashing on descendent selectors
-          if (rule.selectorText.indexOf(">") === -1) {
-            styles += "\n" + rule.cssText;
-          };
+      if (ss.cssRules) {
+        for (var i = 0; i < ss.cssRules.length; i++) {
+          var rule = ss.cssRules[i];
+          if (rule.type === 3) {
+            // Import Rule
+            processStyleSheet(rule.styleSheet);
+          } else {
+            // hack for illustrator crashing on descendent selectors
+            if (rule.selectorText.indexOf(">") === -1) {
+              styles += "\n" + rule.cssText;
+            }
+          }
         }
       }
     }
