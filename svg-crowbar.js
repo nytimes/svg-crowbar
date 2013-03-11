@@ -1,17 +1,21 @@
 (function() {
   var doctype = '<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">';
 
-  // TODO check for and insert d3 if not present
+  if (d3) {
+    initialize();
+  } else {
+    var script = document.createElement('script');
+    script.onload = initialize;
+    script.src = "http://d3js.org/d3.v3.min.js";
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
 
-  var styles = getStyles();
+  function initialize() {
+    var styles = getStyles();
+    var SVGSources = getSources(styles);
+    createPopover(SVGSources);
+  }
 
-  var SVGSources = getSources(styles);
-
-  createPopover(SVGSources);
-
-  //
-  //
-  //
   function createPopover(sources) {
 
     closePopover();
@@ -95,18 +99,10 @@
 
   }
 
-
-  //
-  //
-  //
   function closePopover() {
     d3.select("#svg-crowbar").remove();
   }
 
-
-  //
-  //
-  //
   function getSources(styles) {
     var svgs = d3.selectAll("svg"),
         info = [];
@@ -137,9 +133,6 @@
     return info;
   }
 
-  //
-  //
-  //
   function download(source) {
     var url = URL.createObjectURL(new Blob(source, { "type" : "text\/xml" }));
 
@@ -156,9 +149,6 @@
     }, 10);
   }
 
-  //
-  //
-  //
   function getStyles() {
     var styles = "",
         styleSheets = window.document.styleSheets;
