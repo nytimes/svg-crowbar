@@ -172,8 +172,10 @@
             processStyleSheet(rule.styleSheet);
           } else {
             // hack for illustrator crashing on descendent selectors
-            if (rule.selectorText.indexOf(">") === -1) {
-              styles += "\n" + rule.cssText;
+            if (rule.selectorText) {
+              if (rule.selectorText.indexOf(">") === -1) {
+                styles += "\n" + rule.cssText;
+              }
             }
           }
         }
