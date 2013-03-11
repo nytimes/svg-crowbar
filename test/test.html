@@ -21,7 +21,6 @@
 <div id="body"></div>
 
 <script src="http://d3js.org/d3.v3.min.js"></script>
-<script src="../svg-crowbar.js"></script>
 <script type="text/javascript">
 
   var svg = d3.select("#body").append("svg")
@@ -59,7 +58,7 @@
   secondSvg.append("circle")
       .attr("r", 20);
 
-  SVGCrowbar.init("first", "svg.first");
-  SVGCrowbar.init("second", "svg.second");
+  // SVGCrowbar.init("second", "svg.second");
 
 </script>
+<script src="../svg-crowbar.js"></script>
