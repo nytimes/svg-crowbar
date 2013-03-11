@@ -21,8 +21,21 @@
     /* Page Styles */
     body {
       font-family: "Helvetica Neue", Helvetica, Arial;
-      width: 800px;
-      margin: 20px auto;
+      width: 600px;
+      margin: 40px auto;
+      font-size: 15px;
+      line-height: 1.4em;
+    }
+
+    h3 {
+      font-size: 18px;
+      border-top: solid 1px #ddd;
+      padding: 20px 0 0 0;
+      margin: 20px 0 0 0;
+    }
+
+    p {
+      color: #333;
     }
 
     .bookmarklet {
@@ -49,11 +62,14 @@
   <h3>The Bookmarklet</h3>
   <p>
     <a class="bookmarklet" href="javascript:javascript: (function () { var e = document.createElement('script'); e.setAttribute('src', 'http://nytimes.github.com/svg-crowbar/svg-crowbar.js'); document.body.appendChild(e);
-   })();">SVG Crowbar</a>
+   })();">SVG Crowbar</a>&nbsp;
     <span>← Drag this to your bookmarks bar.</span>
   </p>
   <a href="https://github.com/NYTimes/svg-crowbar"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
-
+  <h3>Notes</h3>
+  <p>Pixels will map to points when opening in Illustrator.</p>
+  <p>Size of the document will be the size of your SVG node.</p>
+  <p>All colors are RGB, which is not ideal for print documents, but CMYK is not supported in SVG.</p>
   <h3>Gotchas</h3>
   <p>It only works in Chrome.</p>
   <p>Doesn’t work with iframes.</p>
@@ -67,7 +83,7 @@
 
    var svg = d3.select("#svgs").append("svg")
        .attr("class", "first")
-       .attr("width", 800)
+       .attr("width", 600)
        .attr("height", 400);
 
    svg.append("circle")
@@ -94,7 +110,7 @@
 
    var secondSvg = d3.select("#svgs").append("svg")
        .attr("class", "second")
-       .attr("width", 800)
+       .attr("width", 600)
        .attr("height", 400);
 
    secondSvg.append("circle")
