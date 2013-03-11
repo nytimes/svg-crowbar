@@ -1,6 +1,68 @@
 <!DOCTYPE html>
 
-<h1>SVG Crowbar</h1>
+<link rel="stylesheet" type="text/css" href="assets/linked.css">
 
-<a href="javascript:javascript: (function () { var e = document.createElement('script'); e.setAttribute('src', 'http://path/to/external/file.js'); document.body.appendChild(e);
+<style>
+
+  @import url("assets/imported.css");
+
+  svg {
+    border: solid 1px #ddd;
+  }
+
+  .internal {
+    fill: #f0f;
+    font-size: 16px;
+    font-family: Helvetica;
+  }
+
+</style>
+
+<h1>SVG Crowbar</h1>
+<p>Bookmarklet:</p>
+<a href="javascript:javascript: (function () { var e = document.createElement('script'); e.setAttribute('src', 'svg-crowbar.js'); document.body.appendChild(e);
  })();">SVG Crowbar</a>
+
+<div id="svgs"></div>
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script type="text/javascript">
+
+ var svg = d3.select("#svgs").append("svg")
+     .attr("class", "first")
+     .attr("width", 800)
+     .attr("height", 400);
+
+ svg.append("circle")
+     .attr("r", 50)
+     .style("fill", "#00f");
+
+ svg.append("text")
+     .attr("class", "internal")
+     .attr("x", 100)
+     .attr("y", 100)
+     .text("Internal CSS, this text should be pink.");
+
+ svg.append("text")
+     .attr("class", "imported")
+     .attr("x", 100)
+     .attr("y", 200)
+     .text("Imported CSS, this text should be pink.");
+
+ svg.append("text")
+     .attr("class", "linked")
+     .attr("x", 100)
+     .attr("y", 300)
+     .text("Linked CSS, this text should be pink.");
+
+ var secondSvg = d3.select("#svgs").append("svg")
+     .attr("class", "second")
+     .attr("width", 800)
+     .attr("height", 400);
+
+ secondSvg.append("circle")
+     .attr("r", 20);
+
+ // SVGCrowbar.init("second", "svg.second");
+
+</script>

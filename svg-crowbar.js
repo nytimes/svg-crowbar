@@ -139,10 +139,10 @@
           // Import Rule
           processStyleSheet(rule.styleSheet);
         } else {
-          // hack for illustrator crashing
-          // if (rule.selectorText.indexOf(">") === -1) {
+          // hack for illustrator crashing on descendent selectors
+          if (rule.selectorText.indexOf(">") === -1) {
             styles += "\n" + rule.cssText;
-          // };
+          };
         }
       }
     }
