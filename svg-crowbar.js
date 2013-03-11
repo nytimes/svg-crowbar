@@ -25,6 +25,7 @@
     var html = body.append("div")
         .attr("id", "svg-crowbar")
         .style("position", "fixed")
+        .style("z-index", 1000)
         .style("top", "30px")
         .style("right", "30px")
         .style("background", "rgba(0, 0, 0, 0.8)")
