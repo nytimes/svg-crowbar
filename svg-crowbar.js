@@ -13,6 +13,7 @@
   function initialize() {
     var styles = getStyles();
     var SVGSources = getSources(styles);
+    console.log(SVGSources);
     if (SVGSources.length > 1) {
       createPopover(SVGSources);
     } else if (SVGSources.length > 0) {
@@ -22,7 +23,7 @@
 
   function createPopover(sources) {
 
-    closePopover();
+    cleanup();
 
     sources.forEach(function(s1) {
       sources.forEach(function(s2) {
@@ -67,7 +68,7 @@
         .on("click", function(d, i) {
           d3.event.preventDefault();
           download(d.source);
-          closePopover();
+          cleanup();
         });
 
     var html = body.append("div")
@@ -85,9 +86,8 @@
 
   }
 
-  function closePopover() {
+  function cleanup() {
     d3.selectAll(".svg-crowbar").remove();
-    d3.select("#svg-crowbar").remove();
   }
 
   function getSources(styles) {
@@ -130,6 +130,7 @@
 
     var a = d3.select("body")
         .append('a')
+        .attr("class", "svg-crowbar")
         .attr("download", "untitled.svg")
         .attr("href", url)
         .style("display", "none");
