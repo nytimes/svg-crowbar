@@ -17,7 +17,7 @@
     if (SVGSources.length > 1) {
       createPopover(SVGSources);
     } else if (SVGSources.length > 0) {
-      download(SVGSources[0].source);
+      download(SVGSources[0]);
     }
   }
 
@@ -63,7 +63,7 @@
         })
         .on("click", function(d, i) {
           d3.event.preventDefault();
-          download(d.source);
+          download(d);
         });
 
     var html = body.append("div")
@@ -121,12 +121,20 @@
   }
 
   function download(source) {
-    var url = URL.createObjectURL(new Blob(source, { "type" : "text\/xml" }));
+    var filename = "untitled";
+
+    if (source.id) {
+      filename = source.id;
+    } else if (source.class)
+      filename = source.class;
+    }
+
+    var url = URL.createObjectURL(new Blob(source.source, { "type" : "text\/xml" }));
 
     var a = d3.select("body")
         .append('a')
         .attr("class", "svg-crowbar")
-        .attr("download", "untitled.svg")
+        .attr("download", filename + ".svg")
         .attr("href", url)
         .style("display", "none");
 
