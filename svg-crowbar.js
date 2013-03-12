@@ -79,7 +79,8 @@
         .style("border-radius", "4px")
         .style("box-shadow", "0px 4px 18px rgba(0, 0, 0, 0.4)")
         .style("color", "white")
-        .style("font-family", "'Helvetica Neue'");
+        .style("font-family", "'Helvetica Neue'")
+        ;
 
     var close = header.append("div")
         .text("X")
@@ -99,7 +100,9 @@
         .on("click", closePopover);
 
     var headline = header.append("div")
-        .text("The Crowbar");
+        .text("The Crowbar")
+        .style("color", "white")
+        .style("font-size", "16px");
 
     headline.append("span")
         .text(" found " + (sources.length === 0 ? "no" : sources.length) + " SVG node" + (sources.length === 1 ? "" : "s"));
