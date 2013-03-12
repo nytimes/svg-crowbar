@@ -125,7 +125,7 @@
 
     if (source.id) {
       filename = source.id;
-    } else if (source.class)
+    } else if (source.class) {
       filename = source.class;
     }
 
