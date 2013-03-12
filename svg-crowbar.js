@@ -57,7 +57,9 @@
         .style("background", "black")
         .style("box-shadow", "0px 4px 18px rgba(0, 0, 0, 0.4)")
       .append("button")
-        .text(function(d, i) { return i + " Download svg" (d.id ? "#" + d.id : "") + (d.class ? "." + d.class : ""); })
+        .text(function(d, i) {
+          return i + " Download svg" + (d.id ? "#" + d.id : "") + (d.class ? "." + d.class : "");
+        })
         .on("click", function(d, i) {
           d3.event.preventDefault();
           download(d.source);
