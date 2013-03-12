@@ -113,6 +113,16 @@
         .style("fill-opacity", 0.01)
         .style("stroke", "#0ff");
 
+    svg.selectAll(".bead")
+        .data(d3.range(600))
+      .enter().append("circle")
+        .attr("class", "bead")
+        .attr("cx", function(d) { return (d % 20) * (width / 19); })
+        .attr("cy", function(d) { return Math.floor(d / 20) * (height / 29); })
+        .attr("r", function(d) { return Math.random() * 10; })
+        .style("fill", "#0ff")
+        .style("fill-opacity", 0.4);
+
     svg.append("text")
         .attr("class", "internal")
         .attr("x", width / 2)
@@ -136,16 +146,6 @@
         .attr("x", width / 2)
         .attr("y", height / 5 * 4)
         .text("An HTML dependency, this text should be pink.");
-
-    svg.selectAll(".bead")
-        .data(d3.range(600))
-      .enter().append("circle")
-        .attr("class", "bead")
-        .attr("cx", function(d) { return (d % 20) * (width / 19); })
-        .attr("cy", function(d) { return Math.floor(d / 20) * (height / 29); })
-        .attr("r", function(d) { return Math.random() * 10; })
-        .style("fill", "#f0f")
-        .style("fill-opacity", 0.5);
 
   </script>
 
