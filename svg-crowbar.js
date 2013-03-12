@@ -88,13 +88,15 @@
     var info = [];
 
     var svgs = d3.selectAll("svg");
+    svgs.each(processSVG);
+
 
     // get some iframe svgs
     var iframes = d3.selectAll("iframe").each(function() {
-      svgs.concat(d3.select(this.contentDocument).selectAll("svg"));
+      d3.select(this.contentDocument).selectAll("svg").each(processSVG);
     });
 
-    svgs.each(function() {
+    function processSVG() {
       var svg = d3.select(this);
       svg.attr("version", "1.1")
         .insert("defs", ":first-child")
@@ -119,8 +121,7 @@
         childElementCount: svg.node().childElementCount,
         source: [doctype + source]
       });
-
-    });
+    }
 
     return info;
   }
