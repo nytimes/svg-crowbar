@@ -99,7 +99,7 @@
   }
 
   function closePopover() {
-    d3.select(".svg-crowbar").remove();
+    d3.selectAll(".svg-crowbar").remove();
     d3.select("#svg-crowbar").remove();
   }
 
