@@ -92,11 +92,13 @@
 
     // get iframe svgs
     var iframes = d3.selectAll("iframe").each(function() {
-      var iframeStyles = getStyles(this.contentDocument);
-      var iframe = d3.select(this.contentDocument);
-      iframe.selectAll("svg").each(function() {
-        processSVG.call(this, iframeStyles);
-      });
+      if (this.contentDocument !== null) {
+        var iframeStyles = getStyles(this.contentDocument);
+        var iframe = d3.select(this.contentDocument);
+        iframe.selectAll("svg").each(function() {
+          processSVG.call(this, iframeStyles);
+        });
+      }
     });
 
     function processSVG(iframeStyles) {
