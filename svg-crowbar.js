@@ -18,6 +18,8 @@
       createPopover(SVGSources);
     } else if (SVGSources.length > 0) {
       download(SVGSources[0]);
+    } else {
+      alert("The Crowbar could not find any SVG nodes. Perhaps they are inside an iframe.");
     }
   }
 
@@ -75,10 +77,6 @@
         .style("top", 0)
         .style("width", "100%")
         .style("height", "100%");
-
-    html.append("h1")
-        .style("text-align", "center")
-        .text("The Crowbar found " + (sources.length === 0 ? "no" : sources.length) + " SVG node" + (sources.length === 1 ? "" : "s"))
 
   }
 
