@@ -19,7 +19,7 @@
     } else if (SVGSources.length > 0) {
       download(SVGSources[0]);
     } else {
-      alert("The Crowbar could not find any SVG nodes. Perhaps they are inside an iframe.");
+      alert("The Crowbar couldn’t find any SVG nodes. Perhaps they are inside an iframe.");
     }
   }
 
@@ -85,8 +85,14 @@
   }
 
   function getSources(styles) {
-    var svgs = d3.selectAll("svg"),
-        info = [];
+    var info = [];
+
+    var svgs = d3.selectAll("svg");
+
+    // get some iframe svgs
+    var iframes = d3.selectAll("iframe").each(function() {
+      svgs.concat(d3.select(this.contentDocument).selectAll("svg"));
+    });
 
     svgs.each(function() {
       var svg = d3.select(this);
