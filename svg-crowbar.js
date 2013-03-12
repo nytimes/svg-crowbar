@@ -18,7 +18,7 @@
     } else if (SVGSources.length > 0) {
       download(SVGSources[0]);
     } else {
-      alert("The Crowbar couldn’t find any SVG nodes. Perhaps they are inside an iframe.");
+      alert("The Crowbar couldn’t find any SVG nodes.");
     }
   }
 
@@ -101,7 +101,7 @@
 
     function processSVG(iframeStyles) {
       var svg = d3.select(this);
-      iframeStyles = (iframeStyles === undefined)? "" : iframeStyles;
+      var localStyles = (iframeStyles === undefined)? styles : iframeStyles;
       svg.attr("version", "1.1")
         .insert("defs", ":first-child")
           .attr("class", "svg-crowbar")
@@ -113,7 +113,7 @@
         svg.attr("xmlns", d3.ns.prefix.svg);
       };
 
-      var source = (new XMLSerializer()).serializeToString(svg.node()).replace('</style>', '<![CDATA[' + styles + "\n" + iframeStyles + ']]></style>');
+      var source = (new XMLSerializer()).serializeToString(svg.node()).replace('</style>', '<![CDATA[' + localStyles + ']]></style>');
       var rect = svg.node().getBoundingClientRect()
       info.push({
         top: rect.top,
