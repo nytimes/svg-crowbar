@@ -13,7 +13,6 @@
   function initialize() {
     var styles = getStyles();
     var SVGSources = getSources(styles);
-    console.log(SVGSources);
     if (SVGSources.length > 1) {
       createPopover(SVGSources);
     } else if (SVGSources.length > 0) {
@@ -93,7 +92,8 @@
 
     // get some iframe svgs
     var iframes = d3.selectAll("iframe").each(function() {
-      d3.select(this.contentDocument).selectAll("svg").each(processSVG);
+      var iframe = d3.select(this.contentDocument);
+      iframe.selectAll("svg").each(processSVG);
     });
 
     function processSVG() {
@@ -122,7 +122,7 @@
         source: [doctype + source]
       });
     }
-
+    console.log(info)
     return info;
   }
 
