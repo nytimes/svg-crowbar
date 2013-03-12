@@ -24,7 +24,7 @@
       sources.forEach(function(s2) {
         if (s1 !== s2) {
           if (s1.top === s2.top && s1.left === s2.left) {
-            s2.left += 100;
+            s2.left += 200;
           };
         };
       })
