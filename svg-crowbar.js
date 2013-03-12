@@ -136,6 +136,8 @@
       filename = source.id;
     } else if (source.class) {
       filename = source.class;
+    } else if (window.document.title) {
+      filename = window.document.title.replace(/[^a-z0-9]/gi, '-').toLowerCase();
     }
 
     var url = URL.createObjectURL(new Blob(source.source, { "type" : "text\/xml" }));
