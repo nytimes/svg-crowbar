@@ -11,7 +11,7 @@
   }
 
   function initialize() {
-    var styles = getStyles();
+    var styles = getStyles(window.document);
     var SVGSources = getSources(styles);
     if (SVGSources.length > 1) {
       createPopover(SVGSources);
@@ -90,8 +90,9 @@
     svgs.each(processSVG);
 
 
-    // get some iframe svgs
+    // get iframe svgs
     var iframes = d3.selectAll("iframe").each(function() {
+      var iframeStyles = getStyles(this.contentDocument);
       var iframe = d3.select(this.contentDocument);
       iframe.selectAll("svg").each(processSVG);
     });
@@ -109,7 +110,7 @@
         svg.attr("xmlns", d3.ns.prefix.svg);
       };
 
-      var source = (new XMLSerializer()).serializeToString(svg.node()).replace('</style>', '<![CDATA[' + styles + ']]></style>');
+      var source = (new XMLSerializer()).serializeToString(svg.node()).replace('</style>', '<![CDATA[' + styles + "\n" + iframeStyles + ']]></style>');
       var rect = svg.node().getBoundingClientRect()
       info.push({
         top: rect.top,
@@ -122,7 +123,6 @@
         source: [doctype + source]
       });
     }
-    console.log(info)
     return info;
   }
 
@@ -151,9 +151,9 @@
     }, 10);
   }
 
-  function getStyles() {
+  function getStyles(doc) {
     var styles = "",
-        styleSheets = window.document.styleSheets;
+        styleSheets = doc.styleSheets;
 
     if (styleSheets) {
       for (var i = 0; i < styleSheets.length; i++) {
