@@ -101,6 +101,7 @@
 
     function processSVG(iframeStyles) {
       var svg = d3.select(this);
+      iframeStyles = (iframeStyles === undefined)? "" : iframeStyles;
       svg.attr("version", "1.1")
         .insert("defs", ":first-child")
           .attr("class", "svg-crowbar")
