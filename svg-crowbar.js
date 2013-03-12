@@ -29,10 +29,10 @@
         .style("top", 0)
         .style("left", 0);
 
-    var button = buttons.selectAll(".button")
+    var button = buttons.selectAll(".crowbar-button")
         .data(sources)
       .enter().append("div")
-        .attr("class", "button")
+        .attr("class", "crowbar-button")
         .text(function(d, i) { return "Download SVG #" + (i + 1); })
         .style("position", "absolute")
         .style("font-size", "13px")
