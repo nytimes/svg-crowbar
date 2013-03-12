@@ -35,24 +35,22 @@
         .style("color", "white")
         .style("font-family", "'Helvetica Neue'");
 
-    // TODO Don't want to add this until we can clean up the added style tags to the svg nodes
-    //
-    // var close = html.append("div")
-    //     .text("X")
-    //     .style("position", "absolute")
-    //     .style("font-weight", "bold")
-    //     .style("right", "-9px")
-    //     .style("top", "-9px")
-    //     .style("border", "solid 2px white")
-    //     .style("cursor", "pointer")
-    //     .style("text-align", "center")
-    //     .style("font-size", "10px")
-    //     .style("line-height", "18px")
-    //     .style("border-radius", "20px")
-    //     .style("background", "#c33")
-    //     .style("width", "18px")
-    //     .style("height", "18px")
-    //     .on("click", closePopover);
+    var close = html.append("div")
+        .text("X")
+        .style("position", "absolute")
+        .style("font-weight", "bold")
+        .style("right", "-9px")
+        .style("top", "-9px")
+        .style("border", "solid 2px white")
+        .style("cursor", "pointer")
+        .style("text-align", "center")
+        .style("font-size", "10px")
+        .style("line-height", "18px")
+        .style("border-radius", "20px")
+        .style("background", "#c33")
+        .style("width", "18px")
+        .style("height", "18px")
+        .on("click", closePopover);
 
     var headline = html.append("div")
         .text("The Crowbar");
@@ -101,6 +99,7 @@
   }
 
   function closePopover() {
+    d3.select(".svg-crowbar").remove();
     d3.select("#svg-crowbar").remove();
   }
 
@@ -112,10 +111,11 @@
       var svg = d3.select(this);
       svg.attr("version", "1.1")
         .insert("defs", ":first-child")
+          .attr("class", "svg-crowbar")
         .append("style")
           .attr("type", "text/css");
 
-      // Some svgs would allow this attr to be set twice.
+      // Some svgs would allow this attr to be set twice which kills illustrator, again.
       if (svg.attr("xmlns") === null) {
         svg.attr("xmlns", d3.ns.prefix.svg);
       };
