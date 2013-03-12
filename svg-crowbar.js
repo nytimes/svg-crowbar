@@ -24,10 +24,7 @@
 
     var buttons = body.append("div")
         .attr("class", "svg-crowbar")
-        .style("font-family", "'Helvetica Neue'")
-        .style("font-size", "13px")
         .style("z-index", 100000)
-        .style("color", "white")
         .style("position", "absolute")
         .style("top", 0)
         .style("left", 0);
@@ -38,6 +35,9 @@
         .attr("class", "button")
         .text(function(d, i) { return "Download SVG #" + (i + 1); })
         .style("position", "absolute")
+        .style("font-size", "13px")
+        .style("font-family", "'Helvetica Neue'")
+        .style("color", "white")
         .style("text-align", "center")
         .style("width", "150px")
         .style("top", function(d) { return (d.top + document.body.scrollTop) + "px"; })
