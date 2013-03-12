@@ -51,13 +51,14 @@
         .style("position", "absolute")
         .style("top", function(d) { return (d.top + document.body.scrollTop) + "px"; })
         .style("left", function(d) { return (document.body.scrollLeft + d.left) + "px"; })
-        .style("padding", "6px")
+        .style("padding", "2px 4px")
         .style("border-radius", "3px")
-        .style("border", "solid 1px white")
-        .style("background", "black")
+        .style("background", "rgba(0, 0, 0, 0.8)")
         .style("box-shadow", "0px 4px 18px rgba(0, 0, 0, 0.4)")
       .append("button")
         .style("width", "150px")
+        .style("font-size", "12px")
+        .style("line-height", "1.4em")
         .text(function(d, i) {
           return i + " Download svg" + (d.id ? "#" + d.id : "") + (d.class ? "." + d.class : "");
         })
