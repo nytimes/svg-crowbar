@@ -77,7 +77,7 @@
    })();">SVG Crowbar</a>&nbsp;
     <span>← Drag this to your bookmarks bar.</span>
   </p>
-  <p>After you’ve installed the bookmarklet, you can execute it on any page with an SVG node.</p>
+  <p>After you’ve installed the bookmarklet, you can execute it on any page.</p>
   <p class="note">(You can click on the link to test it on this page without installing anything.)</p>
   <a href="https://github.com/NYTimes/svg-crowbar"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
   <h3>Notes</h3>
@@ -86,7 +86,7 @@
   <p>All colors are RGB, which is not ideal for print documents, but CMYK is not supported in SVG 1.1.</p>
   <h3>Gotchas</h3>
   <p>It only works in Chrome.</p>
-  <p>Doesn’t work with iframes.</p>
+  <p>Doesn’t work with SVGs inside of iframes.</p>
   <p>Descendent ">" CSS selectors will crash Illustrator, therefore those styles are stripped out. Be warned.</p>
   <p>Some styles won’t propogate down if they depend on markup outside of the svg element. For instance, if you target a svg path element by an id on the div surrounding the svg ("#map svg path") then those styles won’t show up in the resulting file. </p>
 

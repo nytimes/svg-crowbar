@@ -20,22 +20,68 @@
 
     closePopover();
 
-    var body = d3.select("body");
+    var body = d3.select("body")
+
+    var buttons = body.append("div")
+        .attr("class", "svg-crowbar")
+        .style("font-family", "'Helvetica Neue'")
+        .style("font-size", "13px")
+        .style("z-index", 100000)
+        .style("color", "white")
+        .style("position", "absolute")
+        .style("top", 0)
+        .style("left", 0);
+
+    var button = buttons.selectAll(".button")
+        .data(sources)
+      .enter().append("div")
+        .attr("class", "button")
+        .text(function(d, i) { return "Download SVG #" + (i + 1); })
+        .style("position", "absolute")
+        .style("text-align", "center")
+        .style("width", "150px")
+        .style("top", function(d) { return (d.top + document.body.scrollTop) + "px"; })
+        .style("left", function(d) { return (document.body.scrollLeft + d.left) + "px"; })
+        .style("cursor", "pointer")
+        .style("margin", "0")
+        .style("font-size", "13px")
+        .style("padding", "4px")
+        .style("border-radius", "3px")
+        .style("border", "solid 1px white")
+        .style("background", "black")
+        .style("box-shadow", "0px 4px 18px rgba(0, 0, 0, 0.4)")
+        .on("click", function(d, i) {
+          d3.event.preventDefault();
+          download(d.source);
+          // closePopover();
+        });
 
     var html = body.append("div")
-        .attr("id", "svg-crowbar")
+        .attr("class", "svg-crowbar")
+        .style("background", "rgba(255, 255, 255, 0.7)")
         .style("position", "fixed")
-        .style("z-index", 1000)
+        .style("left", 0)
+        .style("top", 0)
+        .style("width", "100%")
+        .style("height", "100%")
+
+    var header = html.append("div")
+        .style("position", "fixed")
+        .style("z-index", 100001)
         .style("top", "30px")
-        .style("right", "30px")
+        .style("left", "50%")
+        .style("width", "400px")
         .style("background", "rgba(0, 0, 0, 0.8)")
         .style("padding", "20px")
-        .style("margin", 0)
+        .style("margin", "0 0 0 -220px")
+        .style("text-align", "center")
+        .style("border", "solid 1px #fff")
         .style("border-radius", "4px")
+        .style("box-shadow", "0px 4px 18px rgba(0, 0, 0, 0.4)")
         .style("color", "white")
         .style("font-family", "'Helvetica Neue'");
 
-    var close = html.append("div")
+    var close = header.append("div")
         .text("X")
         .style("position", "absolute")
         .style("font-weight", "bold")
@@ -52,49 +98,11 @@
         .style("height", "18px")
         .on("click", closePopover);
 
-    var headline = html.append("div")
+    var headline = header.append("div")
         .text("The Crowbar");
 
     headline.append("span")
         .text(" found " + (sources.length === 0 ? "no" : sources.length) + " SVG node" + (sources.length === 1 ? "" : "s"));
-
-    var buttons = html.append("div")
-        .attr("class", "buttons");
-
-    var button = buttons.selectAll(".button")
-        .data(sources)
-      .enter().append("div")
-        .attr("class", "button")
-        .style("font-size", "13px")
-
-    button.append("div")
-        .attr("class", "download")
-        .text(function(d, i) { return "Download #" + (i + 1); })
-        .style("cursor", "pointer")
-        .style("margin", "10px 0 10px 0")
-        .style("font-size", "16px")
-        .style("padding", "4px")
-        .style("border-radius", "3px")
-        .style("border", "solid 1px rgba(255, 255, 255, 0.8)")
-        .style("background", "black")
-        .on("click", function(d, i) {
-          d3.event.preventDefault();
-          download(d.source);
-          // closePopover();
-        });
-
-    button.each(function(source) {
-      var detail = d3.select(this).selectAll(".detail")
-          .data(["id", "class", "childElementCount", "top", "left", "width", "height"])
-        .enter().append("div")
-          .attr("class", "detail");
-
-      detail.append("span")
-          .style("color", "#bbb")
-          .text(function(d) { return d + ": "; });
-      detail.append("span")
-          .text(function(d) { return source[d] ? source[d] : "null"; });
-    });
 
   }
 
