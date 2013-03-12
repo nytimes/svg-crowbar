@@ -13,7 +13,11 @@
   function initialize() {
     var styles = getStyles();
     var SVGSources = getSources(styles);
-    createPopover(SVGSources);
+    if (SVGSources.length > 1) {
+      createPopover(SVGSources);
+    } else if (SVGSources.length > 0) {
+      download(SVGSources[0]);
+    }
   }
 
   function createPopover(sources) {
@@ -63,7 +67,7 @@
         .on("click", function(d, i) {
           d3.event.preventDefault();
           download(d.source);
-          // closePopover();
+          closePopover();
         });
 
     var html = body.append("div")
@@ -73,49 +77,11 @@
         .style("left", 0)
         .style("top", 0)
         .style("width", "100%")
-        .style("height", "100%")
+        .style("height", "100%");
 
-    var header = html.append("div")
-        .style("position", "fixed")
-        .style("z-index", 10000000001)
-        .style("top", "30px")
-        .style("left", "50%")
-        .style("width", "400px")
-        .style("background", "rgba(0, 0, 0, 0.8)")
-        .style("padding", "20px")
-        .style("margin", "0 0 0 -220px")
+    html.append("h1")
         .style("text-align", "center")
-        .style("border", "solid 1px #fff")
-        .style("border-radius", "4px")
-        .style("box-shadow", "0px 4px 18px rgba(0, 0, 0, 0.4)")
-        .style("color", "white")
-        .style("font-family", "'Helvetica Neue'")
-        ;
-
-    var close = header.append("div")
-        .text("X")
-        .style("position", "absolute")
-        .style("font-weight", "bold")
-        .style("right", "-9px")
-        .style("top", "-9px")
-        .style("border", "solid 2px white")
-        .style("cursor", "pointer")
-        .style("text-align", "center")
-        .style("font-size", "10px")
-        .style("line-height", "18px")
-        .style("border-radius", "20px")
-        .style("background", "#c33")
-        .style("width", "18px")
-        .style("height", "18px")
-        .on("click", closePopover);
-
-    var headline = header.append("div")
-        .text("The Crowbar")
-        .style("color", "white")
-        .style("font-size", "16px");
-
-    headline.append("span")
-        .text(" found " + (sources.length === 0 ? "no" : sources.length) + " SVG node" + (sources.length === 1 ? "" : "s"));
+        .text("The Crowbar found " + (sources.length === 0 ? "no" : sources.length) + " SVG node" + (sources.length === 1 ? "" : "s"))
 
   }
 
