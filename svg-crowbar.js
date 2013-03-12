@@ -24,7 +24,7 @@
 
     var buttons = body.append("div")
         .attr("class", "svg-crowbar")
-        .style("z-index", 100000)
+        .style("z-index", 10000000000)
         .style("position", "absolute")
         .style("top", 0)
         .style("left", 0);
@@ -67,7 +67,7 @@
 
     var header = html.append("div")
         .style("position", "fixed")
-        .style("z-index", 100001)
+        .style("z-index", 10000000001)
         .style("top", "30px")
         .style("left", "50%")
         .style("width", "400px")
