@@ -94,10 +94,12 @@
     var iframes = d3.selectAll("iframe").each(function() {
       var iframeStyles = getStyles(this.contentDocument);
       var iframe = d3.select(this.contentDocument);
-      iframe.selectAll("svg").each(processSVG);
+      iframe.selectAll("svg").each(function() {
+        processSVG.call(this, iframeStyles);
+      });
     });
 
-    function processSVG() {
+    function processSVG(iframeStyles) {
       var svg = d3.select(this);
       svg.attr("version", "1.1")
         .insert("defs", ":first-child")
