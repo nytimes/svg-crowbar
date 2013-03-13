@@ -29,7 +29,6 @@
     }
   }
 
-
   function createPopover(sources) {
     cleanup();
     sources.forEach(function(s1) {
@@ -60,15 +59,16 @@
         .style("left", function(d) { return (document.body.scrollLeft + d.left) + "px"; })
         .style("padding", "2px 4px")
         .style("border-radius", "3px")
+        .style("color", "white")
         .style("background", "rgba(0, 0, 0, 0.8)")
         .style("box-shadow", "0px 4px 18px rgba(0, 0, 0, 0.4)")
+        .text(function(d, i) { return i + " " + (d.id ? "#" + d.id : "") + (d.class ? "." + d.class : "")})
       .append("button")
         .style("width", "150px")
         .style("font-size", "12px")
         .style("line-height", "1.4em")
-        .text(function(d, i) {
-          return i + " Download svg" + (d.id ? "#" + d.id : "") + (d.class ? "." + d.class : "");
-        })
+        .style("margin", "10px 0 0 0")
+        .text("Download")
         .on("click", function(d, i) {
           d3.event.preventDefault();
           download(d);
