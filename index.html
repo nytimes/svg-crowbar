@@ -68,20 +68,20 @@
 </head>
 
 <body>
+
+  <a href="https://github.com/NYTimes/svg-crowbar"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+
   <h1>SVG Crowbar</h1>
   <p>A bookmarklet that extracts SVG nodes and accompanying styles from an HTML document and downloads them as an SVG file—A file which you could open and edit in Adobe Illustrator, for instance. Because SVGs are resolution independent, it’s great for when you want to use web technologies to create documents that are meant to be printed (like, maybe on newsprint). It was created with <a href="http://d3js.org">d3.js</a> in mind, but it should work fine no matter how you choose to generate your SVG.</p>
 
   <h3>The Bookmarklet</h3>
   <p>
-    <a class="bookmarklet" href="javascript:javascript: (function () { var e = document.createElement('script'); e.setAttribute('src', 'http://nytimes.github.com/svg-crowbar/svg-crowbar.js'); e.setAttribute('class', 'svg-crowbar'); document.body.appendChild(e);
-   })();">SVG Crowbar</a>&nbsp;
+    <a class="bookmarklet" href="javascript:javascript: (function () { var e = document.createElement('script'); if (window.location.protocol === 'https:') { e.setAttribute('src', 'https://raw.github.com/NYTimes/svg-crowbar/master/svg-crowbar.js'); } else { e.setAttribute('src', 'http://nytimes.github.com/svg-crowbar/svg-crowbar.js'); } e.setAttribute('class', 'svg-crowbar'); document.body.appendChild(e); })();">SVG Crowbar</a>&nbsp;
     <span>← Drag this to your bookmarks bar.</span>
   </p>
   <p>After you’ve installed the bookmarklet, you can execute it on any page.</p>
   <p class="note">(You can click on the link to test it on this page without installing anything.)</p>
-  <p class="note">If you need a version for https pages, try this version that’s slower and will probably break in the future: <a class="bookmarklet" href="javascript:javascript: (function () { var e = document.createElement('script'); e.setAttribute('src', 'https://raw.github.com/NYTimes/svg-crowbar/master/svg-crowbar.js'); e.setAttribute('class', 'svg-crowbar'); document.body.appendChild(e);
-   })();">HTTPS SVG Crowbar</a></p>
-  <a href="https://github.com/NYTimes/svg-crowbar"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+
   <h3>Notes</h3>
   <p>Pixels will map to points when opening in Illustrator.</p>
   <p>Size of the document will be the size of your SVG node.</p>
