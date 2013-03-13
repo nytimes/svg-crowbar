@@ -11,8 +11,15 @@
   }
 
   function initialize() {
-    var styles = getStyles(window.document);
-    var SVGSources = getSources(styles);
+    var documents = [window.document],
+        SVGSources = [];
+    d3.selectAll("iframe").each(function() {
+      documents.push(this.contentDocument);
+    });
+    documents.forEach(function(doc) {
+      var styles = getStyles(doc);
+      SVGSources = getSources(doc, styles);
+    })
     if (SVGSources.length > 1) {
       createPopover(SVGSources);
     } else if (SVGSources.length > 0) {
@@ -22,10 +29,9 @@
     }
   }
 
+
   function createPopover(sources) {
-
     cleanup();
-
     sources.forEach(function(s1) {
       sources.forEach(function(s2) {
         if (s1 !== s2) {
@@ -76,46 +82,32 @@
         .style("top", 0)
         .style("width", "100%")
         .style("height", "100%");
-
   }
 
   function cleanup() {
     d3.selectAll(".svg-crowbar").remove();
   }
 
-  function getSources(styles) {
-    var info = [];
+  function getSources(doc, styles) {
+    var info = [],
+        svgs = d3.select(doc).selectAll("svg");
 
-    var svgs = d3.selectAll("svg");
-    svgs.each(processSVG);
+    styles = (styles === undefined) ? "" : styles;
 
-
-    // get iframe svgs
-    var iframes = d3.selectAll("iframe").each(function() {
-      if (this.contentDocument !== null) {
-        var iframeStyles = getStyles(this.contentDocument);
-        var iframe = d3.select(this.contentDocument);
-        iframe.selectAll("svg").each(function() {
-          processSVG.call(this, iframeStyles);
-        });
-      }
-    });
-
-    function processSVG(iframeStyles) {
+    svgs.each(function () {
       var svg = d3.select(this);
-      var localStyles = (iframeStyles === undefined)? styles : iframeStyles;
       svg.attr("version", "1.1")
         .insert("defs", ":first-child")
           .attr("class", "svg-crowbar")
         .append("style")
           .attr("type", "text/css");
 
-      // Some svgs would allow this attr to be set twice which kills illustrator, again.
+      // Some svgs allow this attr to be set twice which kills illustrator.
       if (svg.attr("xmlns") === null) {
         svg.attr("xmlns", d3.ns.prefix.svg);
       };
 
-      var source = (new XMLSerializer()).serializeToString(svg.node()).replace('</style>', '<![CDATA[' + localStyles + ']]></style>');
+      var source = (new XMLSerializer()).serializeToString(svg.node()).replace('</style>', '<![CDATA[' + styles + ']]></style>');
       var rect = svg.node().getBoundingClientRect()
       info.push({
         top: rect.top,
@@ -127,7 +119,7 @@
         childElementCount: svg.node().childElementCount,
         source: [doctype + source]
       });
-    }
+    });
     return info;
   }
 
@@ -186,7 +178,6 @@
         }
       }
     }
-
     return styles;
   }
 
