@@ -59,7 +59,7 @@
         .style("position", "absolute")
         .style("top", function(d) { return (d.top + document.body.scrollTop) + "px"; })
         .style("left", function(d) { return (document.body.scrollLeft + d.left) + "px"; })
-        .style("padding", "2px 4px")
+        .style("padding", "4px")
         .style("border-radius", "3px")
         .style("color", "white")
         .style("text-align", "center")
@@ -71,7 +71,7 @@
         .style("width", "150px")
         .style("font-size", "12px")
         .style("line-height", "1.4em")
-        .style("margin", "10px 0 0 0")
+        .style("margin", "5px 0 0 0")
         .text("Download")
         .on("click", function(d, i) {
           d3.event.preventDefault();
