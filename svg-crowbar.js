@@ -14,7 +14,9 @@
     var documents = [window.document],
         SVGSources = [];
     d3.selectAll("iframe").each(function() {
-      documents.push(this.contentDocument);
+      if (this.contentDocument) {
+        documents.push(this.contentDocument);
+      }
     });
     documents.forEach(function(doc) {
       var styles = getStyles(doc);
