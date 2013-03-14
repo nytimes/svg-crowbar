@@ -1,6 +1,8 @@
 (function() {
   var doctype = '<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">';
 
+  window.URL = (window.URL || window.webkitURL);
+
   if (window.d3 !== undefined) {
     initialize();
   } else {
@@ -136,7 +138,7 @@
       filename = window.document.title.replace(/[^a-z0-9]/gi, '-').toLowerCase();
     }
 
-    var url = URL.createObjectURL(new Blob(source.source, { "type" : "text\/xml" }));
+    var url = window.URL.createObjectURL(new Blob(source.source, { "type" : "text\/xml" }));
 
     var a = d3.select("body")
         .append('a')
@@ -148,7 +150,7 @@
     a.node().click();
 
     setTimeout(function() {
-      URL.revokeObjectURL(url);
+      window.URL.revokeObjectURL(url);
     }, 10);
   }
 
