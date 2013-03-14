@@ -86,8 +86,10 @@
   <p>Pixels will map to points when opening in Illustrator.</p>
   <p>Size of the document will be the size of your SVG node.</p>
   <p>All colors are RGB, which is not ideal for print documents, but CMYK is not supported in SVG 1.1.</p>
+
   <h3>Gotchas</h3>
   <p>It only works in Chrome.</p>
+  <p>Currently the https version of the script is being served from raw.github.com, which might break in the future. If the script stops running on https pages, check back here—you might have to re-install the bookmarklet if that breaks in the future.</p>
   <p>Descendent ">" CSS selectors will crash Illustrator, therefore those styles are stripped out. Be warned.</p>
   <p>Some styles won’t propogate down if they depend on markup outside of the svg element. For instance, if you use CSS that targets an SVG path element by an id on the div surrounding the SVG ("#map svg path") then those styles won’t show up in the resulting file. </p>
 
