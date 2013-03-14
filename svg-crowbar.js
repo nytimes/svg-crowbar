@@ -136,7 +136,7 @@
       filename = window.document.title.replace(/[^a-z0-9]/gi, '-').toLowerCase();
     }
 
-    var url = URL.createObjectURL(new Blob(source.source, { "type" : "text\/xml" }));
+    var url = (URL || window.URL || window.webkitURL).createObjectURL(new Blob(source.source, { "type" : "text\/xml" }));
 
     var a = d3.select("body")
         .append('a')
