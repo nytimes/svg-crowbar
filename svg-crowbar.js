@@ -111,8 +111,8 @@
         svg.attr("xmlns", d3.ns.prefix.svg);
       }
 
-      if (!svg.node().hasAttributeNS("xmlns", "xlink")) {
-        svg.node().setAttributeNS("xmlns", "xlink", d3.ns.prefix.xlink)
+      if (!svg.node().hasAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink")) {
+        svg.node().setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", d3.ns.prefix.xlink);
       }
 
       var source = (new XMLSerializer()).serializeToString(svg.node()).replace('</style>', '<![CDATA[' + styles + ']]></style>');
