@@ -37,9 +37,14 @@
     cleanup();
     sources.forEach(function(s1) {
       sources.forEach(function(s2) {
-        if (s1 !== s2 && s1.top === s2.top && s1.left === s2.left) {
-          s2.left += 140;
-        };
+        if (s1 !== s2) {
+          if (Math.abs(s1.top - s2.top) < 38) {
+            s2.top =  s1.top + 38;
+          }
+          if (Math.abs(s1.left - s2.left) < 38) {
+            s2.left =  s1.left + 38;
+          }
+        }
       })
     })
 
@@ -47,7 +52,7 @@
 
     var buttons = body.append("div")
         .attr("class", "svg-crowbar")
-        .style("z-index", 10000000000)
+        .style("z-index", 1e7)
         .style("position", "absolute")
         .style("top", 0)
         .style("left", 0);
