@@ -111,7 +111,7 @@
         svg.attr("xmlns", d3.ns.prefix.svg);
       };
 
-      if (!svg.attr("xmlns:xlink") {
+      if (!svg.attr("xmlns:xlink")) {
         svg.attr("xmlns:xlink", d3.ns.prefix.xlink);
       };
 
