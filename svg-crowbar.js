@@ -39,8 +39,8 @@
       sources.forEach(function(s2) {
         if (s1 !== s2) {
           if ((Math.abs(s1.top - s2.top) < 38) && (Math.abs(s1.left - s2.left) < 38)) {
-            s2.top =  s1.top + 38;
-            s2.left =  s1.left + 38;
+            s2.top += 38;
+            s2.left += 38;
           }
         }
       })
