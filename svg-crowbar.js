@@ -107,12 +107,12 @@
           .attr("type", "text/css");
 
       // These are needed for the svg
-      if (!svg.attr("xmlns")) {
-        svg.attr("xmlns", d3.ns.prefix.svg);
+      if (!svg.node().hasAttributeNS(d3.ns.prefix.xmlns, "xmlns")) {
+        svg.node().setAttributeNS(d3.ns.prefix.xmlns, "xmlns", d3.ns.prefix.svg);
       }
 
-      if (!svg.node().hasAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink")) {
-        svg.node().setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", d3.ns.prefix.xlink);
+      if (!svg.node().hasAttributeNS(d3.ns.prefix.xmlns, "xmlns:xlink")) {
+        svg.node().setAttributeNS(d3.ns.prefix.xmlns, "xmlns:xlink", d3.ns.prefix.xlink);
       }
 
       var source = (new XMLSerializer()).serializeToString(svg.node()).replace('</style>', '<![CDATA[' + styles + ']]></style>');
