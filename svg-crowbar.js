@@ -106,14 +106,14 @@
         .append("style")
           .attr("type", "text/css");
 
-      // Some svgs allow this attr to be set twice which kills illustrator.
+      // These are needed for the svg
       if (!svg.attr("xmlns")) {
         svg.attr("xmlns", d3.ns.prefix.svg);
       }
 
-      // if (!svg.attr("xmlns:xlink")) {
-      //   svg.attr("xmlns:xlink", d3.ns.prefix.xlink);
-      // }
+      if (!svg.node().hasAttributeNS("xmlns", "xlink")) {
+        svg.node().setAttributeNS("xmlns", "xlink", d3.ns.prefix.xlink)
+      }
 
       var source = (new XMLSerializer()).serializeToString(svg.node()).replace('</style>', '<![CDATA[' + styles + ']]></style>');
       var rect = svg.node().getBoundingClientRect()
