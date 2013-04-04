@@ -37,7 +37,7 @@
     cleanup();
 
     var drag = d3.behavior.drag()
-        origin(function(d) {
+        .origin(function(d) {
           var el = d3.select(this);
           return {
             x: el.style("left").replace("px", ""),
