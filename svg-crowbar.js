@@ -9,16 +9,16 @@
   document.getElementsByTagName('head')[0].appendChild(script);
 
   function initialize() {
-    var documents = [{document: window.document}],
+    var documents = [window.document],
         SVGSources = [];
-    // d3.selectAll("iframe").each(function() {
-    //   if (this.contentDocument) {
-    //     documents.push(this.contentDocument);
-    //   }
-    // });
+    d3.selectAll("iframe").each(function() {
+      if (this.contentDocument) {
+        documents.push(this.contentDocument);
+      }
+    });
     documents.forEach(function(doc) {
-      var styles = getStyles(doc.document);
-      var newSources = getSources(doc.document, styles);
+      var styles = getStyles(doc);
+      var newSources = getSources(doc, styles);
       // because of prototype on NYT pages
       for (var i = 0; i < newSources.length; i++) {
         SVGSources.push(newSources[i]);
