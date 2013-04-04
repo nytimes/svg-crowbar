@@ -35,6 +35,17 @@
 
   function createPopover(sources) {
     cleanup();
+
+    var drag = d3.behavior.drag()
+        origin(function(d) {
+          var el = d3.select(this);
+          return {
+            x: el.style("left").replace("px", ""),
+            y: el.style("top").replace("px", ""),
+          }
+        })
+        .on("drag", dragmove);
+
     sources.forEach(function(s1) {
       sources.forEach(function(s2) {
         if (s1 !== s2) {
@@ -76,6 +87,7 @@
         .style("line-height", "1.4em")
         .style("margin", "5px 0 0 0")
         .text("Download")
+        .call(drag)
         .on("click", function(d, i) {
           d3.event.preventDefault();
           download(d);
@@ -93,6 +105,12 @@
 
   function cleanup() {
     d3.selectAll(".svg-crowbar").remove();
+  }
+
+  function dragmove(d) {
+    d3.select(this)
+        .style("left", d3.event.x + "px")
+        .style("top", d3.event.y + "px");
   }
 
   function getSources(doc, styles) {
