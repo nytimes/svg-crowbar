@@ -39,10 +39,10 @@
     var drag = d3.behavior.drag()
         .origin(function(d) {
           var el = d3.select(this);
-          return {
+          console.log( {
             x: el.style("left").replace("px", ""),
             y: el.style("top").replace("px", "")
-          }
+          });
         })
         .on("drag", dragmove);
 
