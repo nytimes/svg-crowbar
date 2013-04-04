@@ -41,7 +41,7 @@
           var el = d3.select(this);
           return {
             x: el.style("left").replace("px", ""),
-            y: el.style("top").replace("px", ""),
+            y: el.style("top").replace("px", "")
           }
         })
         .on("drag", dragmove);
