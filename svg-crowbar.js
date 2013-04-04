@@ -36,15 +36,7 @@
   function createPopover(sources) {
     cleanup();
 
-    var drag = d3.behavior.drag()
-        .origin(function(d) {
-          var el = d3.select(this);
-          console.log( {
-            x: el.style("left").replace("px", ""),
-            y: el.style("top").replace("px", "")
-          });
-        })
-        .on("drag", dragmove);
+    var drag = d3.behavior.drag().on("drag", dragmove);
 
     sources.forEach(function(s1) {
       sources.forEach(function(s2) {
