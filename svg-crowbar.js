@@ -3,26 +3,26 @@
 
   window.URL = (window.URL || window.webkitURL);
 
-  if (window.d3 !== undefined) {
-    initialize();
-  } else {
-    var script = document.createElement('script');
-    script.onload = initialize;
-    script.src = "http://d3js.org/d3.v3.min.js";
-    document.getElementsByTagName('head')[0].appendChild(script);
-  }
+  var script = document.createElement('script');
+  script.onload = initialize;
+  script.src = "http://d3js.org/d3.v3.min.js";
+  document.getElementsByTagName('head')[0].appendChild(script);
 
   function initialize() {
-    var documents = [window.document],
+    var documents = [{document: window.document}],
         SVGSources = [];
-    d3.selectAll("iframe").each(function() {
-      if (this.contentDocument) {
-        documents.push(this.contentDocument);
-      }
-    });
+    // d3.selectAll("iframe").each(function() {
+    //   if (this.contentDocument) {
+    //     documents.push(this.contentDocument);
+    //   }
+    // });
     documents.forEach(function(doc) {
-      var styles = getStyles(doc);
-      SVGSources = getSources(doc, styles);
+      var styles = getStyles(doc.document);
+      var newSources = getSources(doc.document, styles);
+      // because of prototype on NYT pages
+      for (var i = 0; i < newSources.length; i++) {
+        SVGSources.push(newSources[i]);
+      };
     })
     if (SVGSources.length > 1) {
       createPopover(SVGSources);
@@ -117,7 +117,7 @@
 
 
   function getSources(doc, styles) {
-    var info = [],
+    var svgInfo = [],
         svgs = d3.select(doc).selectAll("svg");
 
     styles = (styles === undefined) ? "" : styles;
@@ -140,8 +140,8 @@
       }
 
       var source = (new XMLSerializer()).serializeToString(svg.node()).replace('</style>', '<![CDATA[' + styles + ']]></style>');
-      var rect = svg.node().getBoundingClientRect()
-      info.push({
+      var rect = svg.node().getBoundingClientRect();
+      svgInfo.push({
         top: rect.top,
         left: rect.left,
         width: rect.width,
@@ -152,7 +152,7 @@
         source: [doctype + source]
       });
     });
-    return info;
+    return svgInfo;
   }
 
   function download(source) {
