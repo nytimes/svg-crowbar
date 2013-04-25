@@ -130,6 +130,10 @@
         .append("style")
           .attr("type", "text/css");
 
+      // removing attributes so they aren't doubled up
+      svg.node().removeAttribute("xmlns");
+      svg.node().removeAttribute("xlink");
+
       // These are needed for the svg
       if (!svg.node().hasAttributeNS(d3.ns.prefix.xmlns, "xmlns")) {
         svg.node().setAttributeNS(d3.ns.prefix.xmlns, "xmlns", d3.ns.prefix.svg);
