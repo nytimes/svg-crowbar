@@ -80,6 +80,7 @@
         .style("font-family", "'Helvetica Neue'")
         .style("background", "rgba(0, 0, 0, 0.8)")
         .style("box-shadow", "0px 4px 18px rgba(0, 0, 0, 0.4)")
+        .style("cursor", "move")
         .text(function(d, i) { return "SVG #" + i + ": " + (d.id ? "#" + d.id : "") + (d.class ? "." + d.class : "")})
       .append("button")
         .style("width", "150px")
