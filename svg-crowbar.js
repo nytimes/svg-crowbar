@@ -5,7 +5,7 @@
 
   var script = document.createElement('script');
   script.onload = initialize;
-  script.src = "http://d3js.org/d3.v3.min.js";
+  script.src = "https://raw.github.com/mbostock/d3/master/d3.min.js";
   document.getElementsByTagName('head')[0].appendChild(script);
 
   function initialize() {
