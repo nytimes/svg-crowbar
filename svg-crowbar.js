@@ -13,6 +13,8 @@
       require.config({paths: {d3: "//cdnjs.cloudflare.com/ajax/libs/d3/3.4.2/d3.min"}});
       require(["d3"], initialize);
     }
+  } else {
+    initialize(d3);
   }
 
   function initialize(d3) {
