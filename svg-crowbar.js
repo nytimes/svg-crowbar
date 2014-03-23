@@ -14,6 +14,9 @@
       require(["d3"], initialize);
     }
   }
+  else {
+    initialize(d3);
+  }
 
   function initialize(d3) {
     var documents = [window.document],
