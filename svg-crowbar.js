@@ -22,7 +22,11 @@
         SVGSources = [];
 
     d3.selectAll("iframe").each(function() {
-      if (this.contentDocument) documents.push(this.contentDocument);
+      try{
+        if (this.contentDocument) documents.push(this.contentDocument);
+      } catch(err) {
+        console.log(err);
+      }
     });
 
     documents.forEach(function(document) {
