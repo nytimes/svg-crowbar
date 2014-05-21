@@ -19,8 +19,12 @@
         iframes = document.querySelectorAll("iframe");
 
     [].forEach.call(iframes, function(el) {
-      if (el.contentDocument) {
-        documents.push(el.contentDocument);
+      try {
+        if (el.contentDocument) {
+          documents.push(el.contentDocument);
+        }
+      } catch(err) {
+        console.log(err)
       }
     });
 
