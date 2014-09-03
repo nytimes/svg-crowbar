@@ -9,7 +9,7 @@
     xmlns: "http://www.w3.org/2000/xmlns/",
     xlink: "http://www.w3.org/1999/xlink",
     svg: "http://www.w3.org/2000/svg"
-  }
+  };
 
   initialize();
 
@@ -24,7 +24,7 @@
           documents.push(el.contentDocument);
         }
       } catch(err) {
-        console.log(err)
+        console.log(err);
       }
     });
 
@@ -34,8 +34,8 @@
       // because of prototype on NYT pages
       for (var i = 0; i < newSources.length; i++) {
         SVGSources.push(newSources[i]);
-      };
-    })
+      }
+    });
     if (SVGSources.length > 1) {
       createPopover(SVGSources);
     } else if (SVGSources.length > 0) {
@@ -56,7 +56,7 @@
             s2.left += 38;
           }
         }
-      })
+      });
     });
 
     var buttonsContainer = document.createElement("div");
@@ -100,7 +100,7 @@
 
       var button = document.createElement("button");
       buttonWrapper.appendChild(button);
-      button.setAttribute("data-source-id", i)
+      button.setAttribute("data-source-id", i);
       button.style["width"] = "150px";
       button.style["font-size"] = "12px";
       button.style["line-height"] = "1.4em";
@@ -139,7 +139,7 @@
       svg.insertBefore(defsEl, svg.firstChild); //TODO   .insert("defs", ":first-child")
       // defsEl.setAttribute("class", "svg-crowbar");
 
-      var styleEl = document.createElement("style")
+      var styleEl = document.createElement("style");
       defsEl.appendChild(styleEl);
       styleEl.setAttribute("type", "text/css");
 
