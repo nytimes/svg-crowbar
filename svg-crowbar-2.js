@@ -17,7 +17,8 @@
   function initialize() {
     var documents = [window.document],
         SVGSources = [];
-        iframes = document.querySelectorAll("iframe");
+        iframes = document.querySelectorAll("iframe"),
+        objects = document.querySelectorAll("object");
 
     // add empty svg element
     var emptySvg = window.document.createElementNS(prefix.svg, 'svg');
@@ -31,6 +32,16 @@
         }
       } catch(err) {
         console.log(err);
+      }
+    });
+
+    [].forEach.call(objects, function(el) {
+      try {
+        if (el.contentDocument) {
+          documents.push(el.contentDocument);
+        }
+      } catch(err) {
+        console.log(err)
       }
     });
 
@@ -198,7 +209,7 @@
 
 
   function setInlineStyles(svg, emptySvgDeclarationComputed) {
-    
+
     function explicitlySetStyle (element) {
       var cSSStyleDeclarationComputed = getComputedStyle(element);
       var i, len, key, value;

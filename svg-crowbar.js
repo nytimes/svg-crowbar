@@ -16,9 +16,20 @@
   function initialize() {
     var documents = [window.document],
         SVGSources = [];
-        iframes = document.querySelectorAll("iframe");
+        iframes = document.querySelectorAll("iframe"),
+        objects = document.querySelectorAll("object");
 
     [].forEach.call(iframes, function(el) {
+      try {
+        if (el.contentDocument) {
+          documents.push(el.contentDocument);
+        }
+      } catch(err) {
+        console.log(err)
+      }
+    });
+
+    [].forEach.call(objects, function(el) {
       try {
         if (el.contentDocument) {
           documents.push(el.contentDocument);
