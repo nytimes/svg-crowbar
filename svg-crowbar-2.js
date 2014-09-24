@@ -3,13 +3,14 @@
 
   window.URL = (window.URL || window.webkitURL);
 
-  var body = document.body;
+  var body = document.body,
+      emptySvg;
 
   var prefix = {
     xmlns: "http://www.w3.org/2000/xmlns/",
     xlink: "http://www.w3.org/1999/xlink",
     svg: "http://www.w3.org/2000/svg"
-  }
+  };
 
   initialize();
 
@@ -18,24 +19,28 @@
         SVGSources = [];
         iframes = document.querySelectorAll("iframe");
 
+    // add empty svg element
+    var emptySvg = window.document.createElementNS(prefix.svg, 'svg');
+    window.document.body.appendChild(emptySvg);
+    var emptySvgDeclarationComputed = getComputedStyle(emptySvg);
+
     [].forEach.call(iframes, function(el) {
       try {
         if (el.contentDocument) {
           documents.push(el.contentDocument);
         }
       } catch(err) {
-        console.log(err)
+        console.log(err);
       }
     });
 
     documents.forEach(function(doc) {
-      var styles = getStyles(doc);
-      var newSources = getSources(doc, styles);
+      var newSources = getSources(doc, emptySvgDeclarationComputed);
       // because of prototype on NYT pages
       for (var i = 0; i < newSources.length; i++) {
         SVGSources.push(newSources[i]);
-      };
-    })
+      }
+    });
     if (SVGSources.length > 1) {
       createPopover(SVGSources);
     } else if (SVGSources.length > 0) {
@@ -43,6 +48,7 @@
     } else {
       alert("The Crowbar couldn’t find any SVG nodes.");
     }
+
   }
 
   function createPopover(sources) {
@@ -56,7 +62,7 @@
             s2.left += 38;
           }
         }
-      })
+      });
     });
 
     var buttonsContainer = document.createElement("div");
@@ -100,7 +106,7 @@
 
       var button = document.createElement("button");
       buttonWrapper.appendChild(button);
-      button.setAttribute("data-source-id", i)
+      button.setAttribute("data-source-id", i);
       button.style["width"] = "150px";
       button.style["font-size"] = "12px";
       button.style["line-height"] = "1.4em";
@@ -125,24 +131,13 @@
   }
 
 
-  function getSources(doc, styles) {
+  function getSources(doc, emptySvgDeclarationComputed) {
     var svgInfo = [],
         svgs = doc.querySelectorAll("svg");
-
-    styles = (styles === undefined) ? "" : styles;
 
     [].forEach.call(svgs, function (svg) {
 
       svg.setAttribute("version", "1.1");
-
-      var defsEl = document.createElement("defs");
-      svg.insertBefore(defsEl, svg.firstChild); //TODO   .insert("defs", ":first-child")
-      // defsEl.setAttribute("class", "svg-crowbar");
-
-      var styleEl = document.createElement("style")
-      defsEl.appendChild(styleEl);
-      styleEl.setAttribute("type", "text/css");
-
 
       // removing attributes so they aren't doubled up
       svg.removeAttribute("xmlns");
@@ -157,7 +152,9 @@
         svg.setAttributeNS(prefix.xmlns, "xmlns:xlink", prefix.xlink);
       }
 
-      var source = (new XMLSerializer()).serializeToString(svg).replace('</style>', '<![CDATA[' + styles + ']]></style>');
+      setInlineStyles(svg, emptySvgDeclarationComputed);
+
+      var source = (new XMLSerializer()).serializeToString(svg);
       var rect = svg.getBoundingClientRect();
       svgInfo.push({
         top: rect.top,
@@ -199,35 +196,53 @@
     }, 10);
   }
 
-  function getStyles(doc) {
-    var styles = "",
-        styleSheets = doc.styleSheets;
 
-    if (styleSheets) {
-      for (var i = 0; i < styleSheets.length; i++) {
-        processStyleSheet(styleSheets[i]);
+  function setInlineStyles(svg, emptySvgDeclarationComputed) {
+    
+    function explicitlySetStyle (element) {
+      var cSSStyleDeclarationComputed = getComputedStyle(element);
+      var i, len, key, value;
+      var computedStyleStr = "";
+      for (i=0, len=cSSStyleDeclarationComputed.length; i<len; i++) {
+        key=cSSStyleDeclarationComputed[i];
+        value=cSSStyleDeclarationComputed.getPropertyValue(key);
+        if (value!==emptySvgDeclarationComputed.getPropertyValue(key) && key != 'font-family') {
+          computedStyleStr+=key+":"+value+";";
+        }
       }
+      if (element.tagName == 'text' || element.tagName == 'tspan') {
+        computedStyleStr += 'font-size:'+cSSStyleDeclarationComputed.fontSize+';';
+        var fw = cSSStyleDeclarationComputed.fontWeight,
+            ff = 'NYTFranklin' + (fw == 300 || fw == 'light' ? 'Light' : fw > 400 || fw == 'bold' ? 'Bold' : 'Medium');
+        computedStyleStr += 'font-family:'+ff+';';
+      }
+      element.setAttribute('style', computedStyleStr);
     }
-
-    function processStyleSheet(ss) {
-      if (ss.cssRules) {
-        for (var i = 0; i < ss.cssRules.length; i++) {
-          var rule = ss.cssRules[i];
-          if (rule.type === 3) {
-            // Import Rule
-            processStyleSheet(rule.styleSheet);
-          } else {
-            // hack for illustrator crashing on descendent selectors
-            if (rule.selectorText) {
-              if (rule.selectorText.indexOf(">") === -1) {
-                styles += "\n" + rule.cssText;
-              }
+    function traverse(obj){
+      var tree = [];
+      tree.push(obj);
+      visit(obj);
+      function visit(node) {
+        if (node && node.hasChildNodes()) {
+          var child = node.firstChild;
+          while (child) {
+            if (child.nodeType === 1 && child.nodeName != 'SCRIPT'){
+              tree.push(child);
+              visit(child);
             }
+            child = child.nextSibling;
           }
         }
       }
+      return tree;
     }
-    return styles;
+    // hardcode computed css styles inside svg
+    var allElements = traverse(svg);
+    var i = allElements.length;
+    while (i--){
+      explicitlySetStyle(allElements[i]);
+    }
   }
+
 
 })();
