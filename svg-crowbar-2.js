@@ -217,7 +217,7 @@
       for (i=0, len=cSSStyleDeclarationComputed.length; i<len; i++) {
         key=cSSStyleDeclarationComputed[i];
         value=cSSStyleDeclarationComputed.getPropertyValue(key);
-        if (value!==emptySvgDeclarationComputed.getPropertyValue(key) && key != 'font-family') {
+        if (value!==emptySvgDeclarationComputed.getPropertyValue(key)) {
           computedStyleStr+=key+":"+value+";";
         }
       }
