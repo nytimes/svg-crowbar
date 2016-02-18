@@ -47,106 +47,14 @@
 
     documents.forEach(function(doc) {
       var newSources = getSources(doc, emptySvgDeclarationComputed);
-      // because of prototype on NYT pages
-      for (var i = 0; i < newSources.length; i++) {
-        SVGSources.push(newSources[i]);
-      }
-    });
-    if (SVGSources.length > 1) {
-      createPopover(SVGSources);
-    } else if (SVGSources.length > 0) {
-      download(SVGSources[0]);
-    } else {
-      alert("The Crowbar couldn’t find any SVG nodes.");
-    }
-
-  }
-
-  function createPopover(sources) {
-    cleanup();
-
-    sources.forEach(function(s1) {
-      sources.forEach(function(s2) {
-        if (s1 !== s2) {
-          if ((Math.abs(s1.top - s2.top) < 38) && (Math.abs(s1.left - s2.left) < 38)) {
-            s2.top += 38;
-            s2.left += 38;
-          }
-        }
-      });
-    });
-
-    var buttonsContainer = document.createElement("div");
-    body.appendChild(buttonsContainer);
-
-    buttonsContainer.setAttribute("class", "svg-crowbar");
-    buttonsContainer.style["z-index"] = 1e7;
-    buttonsContainer.style["position"] = "absolute";
-    buttonsContainer.style["top"] = 0;
-    buttonsContainer.style["left"] = 0;
-
-
-
-    var background = document.createElement("div");
-    body.appendChild(background);
-
-    background.setAttribute("class", "svg-crowbar");
-    background.style["background"] = "rgba(255, 255, 255, 0.7)";
-    background.style["position"] = "fixed";
-    background.style["left"] = 0;
-    background.style["top"] = 0;
-    background.style["width"] = "100%";
-    background.style["height"] = "100%";
-
-    sources.forEach(function(d, i) {
-      var buttonWrapper = document.createElement("div");
-      buttonsContainer.appendChild(buttonWrapper);
-      buttonWrapper.setAttribute("class", "svg-crowbar");
-      buttonWrapper.style["position"] = "absolute";
-      buttonWrapper.style["top"] = (d.top + document.body.scrollTop) + "px";
-      buttonWrapper.style["left"] = (document.body.scrollLeft + d.left) + "px";
-      buttonWrapper.style["padding"] = "4px";
-      buttonWrapper.style["border-radius"] = "3px";
-      buttonWrapper.style["color"] = "white";
-      buttonWrapper.style["text-align"] = "center";
-      buttonWrapper.style["font-family"] = "'Helvetica Neue'";
-      buttonWrapper.style["background"] = "rgba(0, 0, 0, 0.8)";
-      buttonWrapper.style["box-shadow"] = "0px 4px 18px rgba(0, 0, 0, 0.4)";
-      buttonWrapper.style["cursor"] = "move";
-      buttonWrapper.textContent =  "SVG #" + i + ": " + (d.id ? "#" + d.id : "") + (d.class ? "." + d.class : "");
-
-      var button = document.createElement("button");
-      buttonWrapper.appendChild(button);
-      button.setAttribute("data-source-id", i);
-      button.style["width"] = "150px";
-      button.style["font-size"] = "12px";
-      button.style["line-height"] = "1.4em";
-      button.style["margin"] = "5px 0 0 0";
-      button.textContent = "Download";
-
-      button.onclick = function(el) {
-        // console.log(el, d, i, sources)
-        download(d);
-      };
-
-    });
-
-  }
-
-  function cleanup() {
-    var crowbarElements = document.querySelectorAll(".svg-crowbar");
-
-    [].forEach.call(crowbarElements, function(el) {
-      el.parentNode.removeChild(el);
     });
   }
-
 
   function getSources(doc, emptySvgDeclarationComputed) {
     var svgInfo = [],
         svgs = doc.querySelectorAll("svg");
 
-    [].forEach.call(svgs, function (svg) {
+    [].forEach.call(svgs, function (svg, i) {
 
       svg.setAttribute("version", "1.1");
 
@@ -177,7 +85,29 @@
         childElementCount: svg.childElementCount,
         source: [doctype + source]
       });
+	  
+		svg.addEventListener("click", svgclick, false);
+		svg.addEventListener("mouseover", svgmouseover, false);
+		svg.addEventListener("mouseout", svgmouseout, false);
+
+		function svgclick() {
+			download(svgInfo[i]);
+			return false;
+		};
+		
+		function svgmouseover()
+		{  
+			svg.setAttribute("style", "opacity:0.5; cursor: pointer;");
+			svg.parentElement.setAttribute("title", "Download SVG");
+		}
+
+		function svgmouseout()
+		{  
+		   svg.setAttribute("style", "opacity:1;");
+		}
+	  
     });
+	
     return svgInfo;
   }
 
@@ -248,6 +178,5 @@
       explicitlySetStyle(allElements[i]);
     }
   }
-
 
 })();
