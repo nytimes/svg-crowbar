@@ -46,6 +46,8 @@
       for (var i = 0; i < newSources.length; i++) {
         SVGSources.push(newSources[i]);
       };
+      // create dummy element for exit button
+      SVGSources.unshift(newSources[0]);
     })
     if (SVGSources.length > 1) {
       createPopover(SVGSources);
@@ -92,12 +94,25 @@
     background.style["width"] = "100%";
     background.style["height"] = "100%";
 
+    var buttonWrapper = document.createElement("div");
+    buttonsContainer.appendChild(buttonWrapper);
+    buttonWrapper.style["position"] = "absolute";
+    buttonWrapper.style["top"] = (sources[0].top + document.body.scrollTop) + "px";
+    buttonWrapper.style["left"] = (document.body.scrollLeft + sources[0].left) + "px";
+    var exitButton = document.createElement("button");
+    exitButton.setAttribute('class', 'btn btn-default');
+    buttonWrapper.appendChild(exitButton);
+    exitButton.textContent = "Exit";
+    exitButton.onclick = function(el) {
+      cleanup();
+    };
+
     sources.forEach(function(d, i) {
       var buttonWrapper = document.createElement("div");
       buttonsContainer.appendChild(buttonWrapper);
       buttonWrapper.setAttribute("class", "svg-crowbar");
       buttonWrapper.style["position"] = "absolute";
-      buttonWrapper.style["top"] = (d.top + document.body.scrollTop) + "px";
+      buttonWrapper.style["top"] = (d.top + document.body.scrollTop) + 60 + "px";
       buttonWrapper.style["left"] = (document.body.scrollLeft + d.left) + "px";
       buttonWrapper.style["padding"] = "4px";
       buttonWrapper.style["border-radius"] = "3px";
@@ -110,21 +125,36 @@
       buttonWrapper.textContent =  "SVG #" + i + ": " + (d.id ? "#" + d.id : "") + (d.class ? "." + d.class : "");
 
       var button = document.createElement("button");
+      button.setAttribute('class', 'btn btn-default');
       buttonWrapper.appendChild(button);
       button.setAttribute("data-source-id", i)
       button.style["width"] = "150px";
       button.style["font-size"] = "12px";
       button.style["line-height"] = "1.4em";
       button.style["margin"] = "5px 0 0 0";
-      button.textContent = "Download";
+      // button.style["box-shadow"] = "0px 4px 18px rgba(0, 0, 0, 0.4)";
+      button.textContent = "Download SVG";
+
+      var buttonPNG = document.createElement("button");
+      buttonPNG.setAttribute('class', 'btn btn-default')
+      buttonWrapper.appendChild(buttonPNG);
+      buttonPNG.setAttribute("data-source-id", i);
+      buttonPNG.style["width"] = "150px";
+      buttonPNG.style["font-size"] = "12px";
+      buttonPNG.style["line-height"] = "1.4em";
+      buttonPNG.style["margin"] = "5px 0 0 0";
+      buttonPNG.textContent = "Download PNG";
 
       button.onclick = function(el) {
         // console.log(el, d, i, sources)
         download(d);
       };
 
-    });
+      buttonPNG.onclick = function(el) {
+        downloadPNG(d);
+      }
 
+    });
   }
 
   function cleanup() {
@@ -196,18 +226,66 @@
     }
 
     var url = window.URL.createObjectURL(new Blob(source.source, { "type" : "text\/xml" }));
-
+    if (window.URL !== undefined) {
+      url = window.URL.createObjectURL(new Blob(source.source, { "type" : "text\/xml" }));
+    } else if (window.URL !== undefined) {
+      url = window.URL.createObjectURL(new Blob(source.source, { "type" : "text\/xml" }));
+    }
     var a = document.createElement("a");
     body.appendChild(a);
     a.setAttribute("class", "svg-crowbar");
     a.setAttribute("download", filename + ".svg");
     a.setAttribute("href", url);
+    // open in new tab
+    a.setAttribute('target', '_blank');
     a.style["display"] = "none";
     a.click();
-
     setTimeout(function() {
       window.URL.revokeObjectURL(url);
     }, 10);
+  }
+
+  function downloadPNG(source) {
+    var filename = "untitled";
+
+    if (source.id) {
+      filename = source.id;
+    } else if (source.class) {
+      filename = source.class;
+    } else if (window.document.title) {
+      filename = window.document.title.replace(/[^a-z0-9]/gi, '-').toLowerCase();
+    }
+
+    var canvas = document.createElement("canvas");
+    body.appendChild(canvas);
+    canvas.setAttribute("id", "svg-image");
+    canvas.setAttribute("width", source.width);
+    canvas.setAttribute("height", source.height);
+    canvas.style["display"] = "none";
+
+    var canvas = document.querySelector("canvas#svg-image"),
+    context = canvas.getContext("2d");
+    // Chrome/Firefox is cool but Safari gets mad at escape characters in the string
+    var imgsrc = 'data:image/svg+xml;base64,'+ btoa(unescape(encodeURIComponent(source.source)));
+
+    var image = new Image;
+    image.src = imgsrc;
+    image.onload = function() {
+      context.drawImage(image, 0, 0);
+      var canvasdata = canvas.toDataURL("image/png");
+      //var canvasdata = canvas.toDataURL("image/svg+xml;base64");
+
+      var pngimg = '<img src="'+canvasdata+'" width="'+source.width+'" height="'+source.height+'">'; 
+        d3.select("#pngdataurl").html(pngimg);
+
+      var a = document.createElement("a");
+      body.appendChild(a);
+      a.download = filename+".png";
+
+      //a.download = "sample.svg";
+      a.href = canvasdata;
+      a.click();
+    };
   }
 
   function getStyles(doc) {
