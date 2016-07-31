@@ -46,8 +46,6 @@
       for (var i = 0; i < newSources.length; i++) {
         SVGSources.push(newSources[i]);
       };
-      // create dummy element for exit button
-      SVGSources.unshift(newSources[0]);
     })
     if (SVGSources.length > 1) {
       createPopover(SVGSources);
