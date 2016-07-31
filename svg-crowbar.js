@@ -95,7 +95,7 @@
     var buttonWrapper = document.createElement("div");
     buttonsContainer.appendChild(buttonWrapper);
     buttonWrapper.style["position"] = "absolute";
-    buttonWrapper.style["top"] = (sources[0].top + document.body.scrollTop) + "px";
+    buttonWrapper.style["top"] = (sources[0].top + document.body.scrollTop - 45) + "px";
     buttonWrapper.style["left"] = (document.body.scrollLeft + sources[0].left) + "px";
     var exitButton = document.createElement("button");
     exitButton.setAttribute('class', 'btn btn-default');
@@ -110,7 +110,7 @@
       buttonsContainer.appendChild(buttonWrapper);
       buttonWrapper.setAttribute("class", "svg-crowbar");
       buttonWrapper.style["position"] = "absolute";
-      buttonWrapper.style["top"] = (d.top + document.body.scrollTop) + 60 + "px";
+      buttonWrapper.style["top"] = (d.top + document.body.scrollTop) + "px";
       buttonWrapper.style["left"] = (document.body.scrollLeft + d.left) + "px";
       buttonWrapper.style["padding"] = "4px";
       buttonWrapper.style["border-radius"] = "3px";
