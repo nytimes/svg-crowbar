@@ -211,9 +211,13 @@
   function setInlineStyles(svg, emptySvgDeclarationComputed) {
 
     function explicitlySetStyle (element) {
+      var clientRect = { width: "auto", height: "auto"};
       var cSSStyleDeclarationComputed = getComputedStyle(element);
       var i, len, key, value;
       var computedStyleStr = "";
+      if (element.tagName === "rect") {
+        clientRect = element.getBoundingClientRect();
+      }
       for (i=0, len=cSSStyleDeclarationComputed.length; i<len; i++) {
         key=cSSStyleDeclarationComputed[i];
         value=cSSStyleDeclarationComputed.getPropertyValue(key);
@@ -222,6 +226,10 @@
         }
       }
       element.setAttribute('style', computedStyleStr);
+      if (element.tagName === "rect") {
+        element.style["width"] = clientRect.width;
+        element.style["height"] = clientRect.height;
+      }     
     }
     function traverse(obj){
       var tree = [];
