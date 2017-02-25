@@ -174,6 +174,7 @@
         height: rect.height,
         class: svg.getAttribute("class"),
         id: svg.getAttribute("id"),
+        name: svg.getAttribute("name"),
         childElementCount: svg.childElementCount,
         source: [doctype + source]
       });
@@ -184,7 +185,9 @@
   function download(source) {
     var filename = "untitled";
 
-    if (source.id) {
+    if (source.name) {
+      filename = source.name;
+    } else if (source.id) {
       filename = source.id;
     } else if (source.class) {
       filename = source.class;
