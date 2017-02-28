@@ -207,7 +207,6 @@
 
     setTimeout(function() {
       window.URL.revokeObjectURL(url);
-      cleanup();
     }, 10);
   }
 
